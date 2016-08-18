@@ -1,0 +1,229 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{f0685f30-f5cc-4e0e-a20e-54b3b53e09cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{f8b10a4d-0b96-4ccb-af7c-4b2dfc390b33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\ObjectServices">
+      <UniqueIdentifier>{832c98d3-8ea9-4d1e-94a9-915422cc1f9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object">
+      <UniqueIdentifier>{4974dbd1-83a9-4925-96ff-91a1d622f229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Action">
+      <UniqueIdentifier>{2619c08b-a771-4faa-bf89-3dcde24dc86c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Variable">
+      <UniqueIdentifier>{124e30cd-574c-4814-adce-6b346c1e80ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Config">
+      <UniqueIdentifier>{705c3f41-4d64-4efa-a41b-9fd60154314a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Socket">
+      <UniqueIdentifier>{4712a254-46f8-4734-98e6-d3c9ac11c8b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\CALL">
+      <UniqueIdentifier>{caf53221-951b-4d77-8791-4265defc9ae2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Res">
+      <UniqueIdentifier>{ea57b1ac-9747-4d54-8093-dca7c32fae83}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="LOLDLL.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\AES.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\Character.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLErrMsg.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLFile.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLGrammar.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLHook.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLInjector.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLLock.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLLog.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLNoModuleDLL.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLProcess.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLScript.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLSearchBase.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLStackTrace.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CLThread.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\CPublic.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\MyTools\MyTools\DES.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="GameVariable.cpp">
+      <Filter>Game\Variable</Filter>
+    </ClCompile>
+    <ClCompile Include="GameCALL.cpp">
+      <Filter>Game\CALL</Filter>
+    </ClCompile>
+    <ClCompile Include="GameRes.cpp">
+      <Filter>Game\Res</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LOLDLL.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\AES.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\ByteBuffer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\Character.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLErrMsg.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLFile.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLGrammar.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLHook.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLInjector.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLLock.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLLog.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLNoModuleDLL.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLNoModuleDLL_Struct.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLProcess.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLPublic.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLScript.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLSearchBase.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLStackTrace.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLThread.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\CLVector.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\DES.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\RC4.hpp">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\MyTools\MyTools\ToolsPublic.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="GameStruct.h">
+      <Filter>Game\Variable</Filter>
+    </ClInclude>
+    <ClInclude Include="GameVariable.h">
+      <Filter>Game\Variable</Filter>
+    </ClInclude>
+    <ClInclude Include="GameCALL.h">
+      <Filter>Game\CALL</Filter>
+    </ClInclude>
+    <ClInclude Include="GameRes.h">
+      <Filter>Game\Res</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="LOLDLL.def">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="res\LOLDLL.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LOLDLL.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
