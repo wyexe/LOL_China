@@ -48,6 +48,21 @@
 
 
 
+///////Equment///////////////////////////////////////////////////////////////////
+#define EQUMENT_ID_蓝水晶							0x403
+#define EQUMENT_ID_女神之泪							0xBFE
+#define EQUMENT_ID_速度之靴							0x3E9
+#define EQUMENT_ID_催化神石							0xBC2
+#define EQUMENT_ID_水银之靴							0xC27
+#define EQUMENT_ID_时光之杖							0xBD3
+#define EQUMENT_ID_猛禽斗篷							0x805
+#define EQUMENT_ID_传送门							0xDB8
+#define EQUMENT_ID_巨人腰带							0x3F3
+#define EQUMENT_ID_瑞莱的冰晶节杖					0xC2C
+
+
+
+////////Other//////////////////////////////////////////////////////////////////
 
 #define VARIABLE_ID_MAINTHREADID					0x0
 
@@ -235,7 +250,7 @@ typedef struct _AccountRunStatus
 	BOOL bFrozen;											// 冻结
 }AccountRunStatus;
 
-typedef struct Account_Info_Game
+struct Account_Info_Game
 {
 	ACCOUNT_INFO ACCOUNT_INFO_;								// 帐号信息
 	AccountLog   AccountLog_;								// 帐号日志
@@ -261,7 +276,7 @@ typedef struct Account_Info_Game
 	}
 };
 
-typedef struct _Share_Global_Account
+struct Share_Global_Account
 {
 	BOOL bRun;												// 是否开启全局设置
 	DWORD dwAreaId;											// 大区Id
@@ -275,7 +290,7 @@ typedef struct _Share_Global_Account
 	BOOL IsClose_By_Banned;									// 封号后是否关闭
 	BOOL IsPK;												// 是否PK
 	BOOL IsDailyTask;										// 是否做日常
-}Share_Global_Account;
+};
 
 
 struct Shared_Info

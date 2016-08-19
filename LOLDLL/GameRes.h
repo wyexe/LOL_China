@@ -19,7 +19,7 @@ private:
 	struct HeroResEqument
 	{
 		em_Hero_Pro emHeroPro;
-		vector<ResEqument> HeroEuqmentVec;
+		vector<DWORD> EqumentIdVec;
 	};
 	struct ResSkillInfo
 	{
@@ -63,7 +63,7 @@ public:
 
 	// Skill
 	// 获取英雄的技能用法介绍
-	ResSkill& GetResSkillByHero(_In_ em_Hero_Pro emHeroPro)  CONST throw();
+	auto GetResSkillByHero(_In_ em_Hero_Pro emHeroPro)  CONST throw() -> CONST ResSkill*;
 
 	// 获取英雄的技能点该加哪个点
 	em_Skill_Index* GetSPByHeroLevel(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLevel) CONST throw();
@@ -81,7 +81,10 @@ private:
 	CONST vector<Point>& GetPathPointVecByCampAndPathType(_In_ em_Camp emCamp, _In_ em_Path_Type emPathType) CONST throw();
 
 	// 获取英雄的所有装备列表
-	CONST vector<ResEqument>& GetResEuqmentVecByHero(_In_ em_Hero_Pro emHeroPro) CONST throw();
+	auto GetResEuqmentVecByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() ->CONST vector<DWORD>*;
+
+	// 获取装备列表
+	auto GetResEqumentById(_In_ DWORD dwEqumentId) CONST throw() ->CONST ResEqument*;
 
 	// 获取英雄的技能介绍列表
 	CONST vector<ResSkill>& GetResSkillVec() CONST throw();
