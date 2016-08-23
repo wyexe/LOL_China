@@ -118,15 +118,27 @@
     <ClCompile Include="..\..\MyTools\MyTools\CLThread.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\CPublic.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\DES.cpp" />
+    <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="Creep.cpp" />
+    <ClCompile Include="Equment.cpp" />
     <ClCompile Include="GameCALL.cpp" />
     <ClCompile Include="GameDlg.cpp" />
     <ClCompile Include="GameRes.cpp" />
     <ClCompile Include="GameVariable.cpp" />
+    <ClCompile Include="Hero.cpp" />
+    <ClCompile Include="HeroBuff.cpp" />
+    <ClCompile Include="HumanBaseObject.cpp" />
     <ClCompile Include="LOLDLL.cpp" />
+    <ClCompile Include="ObjectExtend.cpp" />
+    <ClCompile Include="ObjectTraverse.cpp" />
+    <ClCompile Include="Person.cpp" />
+    <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="Solider.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Turret.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\MyTools\MyTools\AES.h" />
@@ -151,15 +163,27 @@
     <ClInclude Include="..\..\MyTools\MyTools\DES.h" />
     <ClInclude Include="..\..\MyTools\MyTools\RC4.hpp" />
     <ClInclude Include="..\..\MyTools\MyTools\ToolsPublic.h" />
+    <ClInclude Include="Creep.h" />
+    <ClInclude Include="Equment.h" />
+    <ClInclude Include="BaseObject.h" />
     <ClInclude Include="GameCALL.h" />
     <ClInclude Include="GameDlg.h" />
     <ClInclude Include="GameRes.h" />
     <ClInclude Include="GameStruct.h" />
     <ClInclude Include="GameVariable.h" />
+    <ClInclude Include="Hero.h" />
+    <ClInclude Include="HeroBuff.h" />
+    <ClInclude Include="HumanBaseObject.h" />
     <ClInclude Include="LOLDLL.h" />
+    <ClInclude Include="ObjectExtend.h" />
+    <ClInclude Include="ObjectTraverse.h" />
+    <ClInclude Include="Person.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Skill.h" />
+    <ClInclude Include="Solider.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Turret.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LOLDLL.def" />

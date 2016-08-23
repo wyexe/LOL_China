@@ -43,6 +43,12 @@
     <Filter Include="Game\Res">
       <UniqueIdentifier>{ea57b1ac-9747-4d54-8093-dca7c32fae83}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Object\HumanType">
+      <UniqueIdentifier>{f9d0e1ba-ccf2-44e0-a195-425f7290d737}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Object\Other">
+      <UniqueIdentifier>{6ee0437a-2192-4e8c-9b0a-96aa7916c74f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -116,6 +122,42 @@
     </ClCompile>
     <ClCompile Include="GameRes.cpp">
       <Filter>Game\Res</Filter>
+    </ClCompile>
+    <ClCompile Include="HumanBaseObject.cpp">
+      <Filter>Game\Object\HumanType</Filter>
+    </ClCompile>
+    <ClCompile Include="Solider.cpp">
+      <Filter>Game\Object\HumanType</Filter>
+    </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>Game\Object\HumanType</Filter>
+    </ClCompile>
+    <ClCompile Include="Hero.cpp">
+      <Filter>Game\Object\HumanType</Filter>
+    </ClCompile>
+    <ClCompile Include="Person.cpp">
+      <Filter>Game\Object\HumanType</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseObject.cpp">
+      <Filter>Game\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Creep.cpp">
+      <Filter>Game\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Equment.cpp">
+      <Filter>Game\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="HeroBuff.cpp">
+      <Filter>Game\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Game\Object\Other</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectTraverse.cpp">
+      <Filter>Game\ObjectServices</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectExtend.cpp">
+      <Filter>Game\ObjectServices</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -211,6 +253,42 @@
     </ClInclude>
     <ClInclude Include="GameRes.h">
       <Filter>Game\Res</Filter>
+    </ClInclude>
+    <ClInclude Include="HumanBaseObject.h">
+      <Filter>Game\Object\HumanType</Filter>
+    </ClInclude>
+    <ClInclude Include="Solider.h">
+      <Filter>Game\Object\HumanType</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.h">
+      <Filter>Game\Object\HumanType</Filter>
+    </ClInclude>
+    <ClInclude Include="Hero.h">
+      <Filter>Game\Object\HumanType</Filter>
+    </ClInclude>
+    <ClInclude Include="Person.h">
+      <Filter>Game\Object\HumanType</Filter>
+    </ClInclude>
+    <ClInclude Include="Creep.h">
+      <Filter>Game\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Equment.h">
+      <Filter>Game\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseObject.h">
+      <Filter>Game\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="HeroBuff.h">
+      <Filter>Game\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Game\Object\Other</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectTraverse.h">
+      <Filter>Game\ObjectServices</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectExtend.h">
+      <Filter>Game\ObjectServices</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -83,6 +83,18 @@ CONST Point* CGameRes::GetPreviouMovePoint(_In_ em_Camp emCamp, _In_ em_Path_Typ
 	return Index - 1 >= 0 ? &Vec.at(Index - 1) : &Vec.at(0);
 }
 
+float CGameRes::GetHeroAttackDis(_In_ em_Hero_Pro emHeroPro) CONST throw()
+{
+	switch (emHeroPro)
+	{
+	case em_Hero_Pro_Ryze:
+		break;
+	default:
+		break;
+	}
+	return 3.0f;
+}
+
 CONST vector<Point>& CGameRes::GetPathPointVecByCampAndPathType(_In_ em_Camp emCamp, _In_ em_Path_Type emPathType) CONST throw()
 {
 	static CONST vector<Point> TopBlueCamp = {
@@ -158,14 +170,13 @@ auto CGameRes::GetResEuqmentVecByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() 
 		{ em_Hero_Pro_Ryze,{ EQUMENT_ID_蓝水晶,EQUMENT_ID_女神之泪 } },
 	};
 
-	auto& itr = std::find_if(HeroResEqumentVec.begin(), HeroResEqumentVec.end(), [&emHeroPro](CONST HeroResEqument& itm) {
+	auto pHeroResEqument = CLPublic::Vec_find_if(HeroResEqumentVec, [&emHeroPro](CONST HeroResEqument& itm) {
 		return itm.emHeroPro == emHeroPro;
 	});
-
-	return itr != HeroResEqumentVec.end() ? &itr->EqumentIdVec : nullptr;
+	return pHeroResEqument != nullptr ? &pHeroResEqument->EqumentIdVec : nullptr;
 }
 
-auto CGameRes::GetResEqumentById(_In_ DWORD dwEqumentId) CONST throw() -> CONST ResEqument*
+auto CGameRes::GetEqumentPriceById(_In_ DWORD dwEqumentId) CONST throw()  -> CONST ResEqument*
 {
 	static CONST vector<ResEqument> ResEqumentVec = {
 		{ EQUMENT_ID_蓝水晶, 350 },
@@ -179,45 +190,71 @@ auto CGameRes::GetResEqumentById(_In_ DWORD dwEqumentId) CONST throw() -> CONST 
 		{ EQUMENT_ID_巨人腰带, 1000 },
 	};
 
-	for (auto& itm : ResEqumentVec)
-	{
-		if (itm.dwEqumentId == dwEqumentId)
-			return &itm;
-	}
-	return nullptr;
+	return CLPublic::Vec_find_if(ResEqumentVec, [&dwEqumentId](CONST auto& itm) { return itm.dwEqumentId == dwEqumentId; });
 }
 
-BOOL CGameRes::GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwMoney, _Out_opt_ DWORD& dwEuqmentId) CONST throw()
+auto CGameRes::GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqumentId, _Out_opt_ DWORD& dwEuqmentId) CONST throw()  -> CONST ResEqument*
 {
+	// Get EqumentId list by Hero
 	auto pVec = GetResEuqmentVecByHero(emHeroPro);
 	if (pVec == nullptr)
 	{
 		LogMsgBox(LOG_LEVEL_EXCEPTION, L"UnExist Hero Equment:%X", emHeroPro);
-		return FALSE;
+		return nullptr;
 	}
 
+	// find current equment id in pVec
+	auto& ResEqumentItr = std::find_if(pVec->begin(), pVec->end(), [&dwLastEqumentId](CONST auto& itm) {
+		return itm == dwLastEqumentId;
+	});
+	if (ResEqumentItr == pVec->begin())
+	{
+		LogMsgBox(LOG_LEVEL_EXCEPTION, L"UnExist Hero Equment:%X", emHeroPro);
+		return nullptr;
+	}
 
+	if (ResEqumentItr + 1 == pVec->end())
+	{
+		// full equment!
+		return nullptr;
+	}
+
+	// Get Next Equment
+	return GetEqumentPriceById(*(ResEqumentItr + 1));
 }
-
-
 
 auto CGameRes::GetResSkillByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() -> CONST ResSkill*
 {
+	CONST static vector<ResSkill> vlst = {
+		{em_Hero_Pro_Ryze,L"瑞兹",{ em_Skill_Type::em_Skill_Type_UnDirectional , 7},{ em_Skill_Type::em_Skill_Type_Directional, 5},{ em_Skill_Type::em_Skill_Type_Directional, 5},{ em_Skill_Type::em_Skill_Type_Self_UnDirectional, 10}},
+	};
 
+	return CLPublic::Vec_find_if(vlst, [&emHeroPro](CONST auto& itm) { return itm.emHeroPro == emHeroPro; });
 }
 
-CONST vector<CGameRes::ResSkill>& CGameRes::GetResSkillVec() CONST throw()
+CONST em_Skill_Index* CGameRes::GetSPByHeroLevel(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLevel) CONST throw()
 {
-
+	CONST auto& Vec = GetHeroSpVec();
+	auto pHeroSp = CLPublic::Vec_find_if(Vec, [&emHeroPro](CONST auto& itm) { return itm.emHeroPro == emHeroPro; });
+	return pHeroSp == nullptr ? nullptr : &pHeroSp->SkillSpVec.at(dwLevel);
 }
 
-em_Skill_Index* CGameRes::GetSPByHeroLevel(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLevel) CONST throw()
+auto CGameRes::GetHeroSpVec() CONST throw() -> CONST vector<tagHeroSp>&
 {
-
-}
-
-CONST vector<CGameRes::tagHeroSp>& CGameRes::GetHeroSpVec() CONST throw()
-{
-
+	CONST static vector<tagHeroSp> vlst = {
+		{ em_Hero_Pro_Ryze,{ 
+			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
+			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
+			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
+			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,
+		} },
+		{ em_Hero_Pro_Garen,{
+			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
+			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
+			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
+			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,
+		} },
+	};
+	return vlst;
 }
 
