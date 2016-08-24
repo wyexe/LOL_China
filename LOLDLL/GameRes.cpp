@@ -38,6 +38,64 @@ CONST Point& CGameRes::GetBaronPoint() CONST throw()
 	return BaronPoint;
 }
 
+cwstring* CGameRes::GetCrystalTurretNameByCampAndType(_In_ em_Camp emCamp, _In_ em_Path_Type emPathType) CONST throw()
+{
+	struct tagCrystalTurret
+	{
+		wstring wsTurretName;
+		em_Camp emCamp;
+		em_Path_Type emPathType;
+	};
+
+	static CONST vector<tagCrystalTurret> vlst = {
+		// 蓝方上路
+		{ L"Barracks_T1_L1", em_Camp_Blue, em_Path_Type::Path_Type_Top },
+
+		// 蓝方中路
+		{ L"Barracks_T1_C1", em_Camp_Blue, em_Path_Type::Path_Type_Middle },
+
+		// 蓝方下路
+		{ L"Barracks_T1_R1", em_Camp_Blue, em_Path_Type::Path_Type_Buttom },
+
+
+		// 红方上路
+		{ L"Barracks_T2_L1", em_Camp_Red, em_Path_Type::Path_Type_Top },
+
+		// 红方中路
+		{ L"Barracks_T2_C1", em_Camp_Red, em_Path_Type::Path_Type_Middle },
+
+		// 红方下路
+		{ L"Barracks_T2_R1", em_Camp_Red, em_Path_Type::Path_Type_Buttom }
+	};
+
+	auto ptagCrystalTurret = CLPublic::Vec_find_if(vlst, [&emCamp, &emPathType](CONST auto& itm) {
+		return itm.emCamp == emCamp && itm.emPathType == emPathType;
+	});
+
+	return ptagCrystalTurret == nullptr ? nullptr : &ptagCrystalTurret->wsTurretName;
+}
+
+em_Path_Type CGameRes::GetDefaultPathTypeByHero(_In_ em_Hero_Pro emHeroPro) CONST throw()
+{
+	// 设置英雄的分路的路线
+	switch (emHeroPro)
+	{
+	case em_Hero_Pro_Ryze: // 流浪法师中单
+		return em_Path_Type::Path_Type_Top;
+	case em_Hero_Pro_Swain: case em_Hero_Pro_Ashe: case em_Hero_Pro_Ezreal:  case em_Hero_Pro_Chogath:  case  em_Hero_Pro_Maokai:
+	case em_Hero_Pro_MissFortune: case em_Hero_Pro_Sejuani: case em_Hero_Pro_Galio: case em_Hero_Pro_KogMaw: case em_Hero_Pro_Ahri:
+		return em_Path_Type::Path_Type_Middle;
+	case em_Hero_Pro_Malzahar: case em_Hero_Pro_MasterYi: case em_Hero_Pro_Graves: case em_Hero_Pro_Vayne:
+	case em_Hero_Pro_Heimerdinger: case em_Hero_Pro_Nunu: case em_Hero_Pro_Garen: case em_Hero_Pro_Veigar:
+	case em_Hero_Pro_Tristana: case em_Hero_Pro_Lucian: case em_Hero_Pro_Corki: case em_Hero_Pro_Caitlyn:
+		return em_Path_Type::Path_Type_Buttom;
+	default:
+		LogMsgBox(LOG_LEVEL_EXCEPTION, L"少年,这个英雄:%X暂时还不支持喔~!", emHeroPro);
+		break;
+	}
+	return em_Path_Type::Path_Type_Middle;
+}
+
 CONST cwstring& CGameRes::GetBaseNameByCamp(_In_ em_Camp emCamp) CONST throw()
 {
 	static cwstring BlueCamp(L"");
@@ -193,7 +251,7 @@ auto CGameRes::GetEqumentPriceById(_In_ DWORD dwEqumentId) CONST throw()  -> CON
 	return CLPublic::Vec_find_if(ResEqumentVec, [&dwEqumentId](CONST auto& itm) { return itm.dwEqumentId == dwEqumentId; });
 }
 
-auto CGameRes::GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqumentId, _Out_opt_ DWORD& dwEuqmentId) CONST throw()  -> CONST ResEqument*
+auto CGameRes::GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqumentId) CONST throw()  -> CONST ResEqument*
 {
 	// Get EqumentId list by Hero
 	auto pVec = GetResEuqmentVecByHero(emHeroPro);

@@ -19,9 +19,9 @@ UINT CObjectTraverse::GetCurrentHeroEqumentList(_Out_ vector<CEqument>& vlst) CO
 	return 0;
 }
 
-BOOL CObjectTraverse::InitSkill(_Out_ vector<CSkill>& vlst) CONST
+BOOL CObjectTraverse::GetSkillList(_Out_ vector<CSkill>& vlst) CONST
 {
-	return 0;
+
 }
 
 BOOL CObjectTraverse::GetCreepList(_Out_ vector<CReep>& vlst) CONST

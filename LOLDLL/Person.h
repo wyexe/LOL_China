@@ -9,7 +9,7 @@ public:
 	CPerson(_In_ DWORD dwNodeBase_);
 	~CPerson();
 
-	CPerson& GetInstance();
+	static CPerson& GetInstance();
 
 	BOOL SetPersonBase(_In_ DWORD dwNodeBase_);
 
@@ -30,6 +30,24 @@ public:
 
 	// 获取普通攻击距离
 	float GetNormalAttackDis() CONST;
+
+	// 获取当前英雄种类
+	em_Hero_Pro GetHeroPro() CONST;
+
+	// 获取这个英雄是哪条路的
+	em_Path_Type& GetHeroPath() CONST;
+
+	// 走路
+	BOOL Move(_In_ CONST Point& TarPoint) CONST;
+
+	// 走到终点
+	BOOL MoveToPoint(_In_ CONST Point& TarPoint, _In_ float fDis) CONST;
+
+	// 停止走路!
+	BOOL StopAction() CONST;
+
+	// 锁定视角
+	BOOL LockView() CONST;
 private:
 	DSIABLE_COPY_AND_ASSIGN(CPerson);
 };

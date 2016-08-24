@@ -44,11 +44,32 @@
 /* GameMacro                                                            */
 /************************************************************************/
 
+#define BLUE_BUFF_REFRESHTIME						6 * 60 * 1000
+#define BLUE_BUFF_ID								0x1C
+#define RED_BUFF_REFRESHTIME						6 * 60 * 1000
+#define DRAGON_BUFF_REFRESHTIME						6 * 60 * 1000
+#define MIDDLE_HERO_PRO								em_Hero_Pro_Ryze
+#define MAX_ATTACK_DIS								10.0f
 
+#define SKILLNAME_RECALL1							L"recall"
+#define SKILLNAME_RECALL2							L"OdinRecall"
+#define DRAGONNAME									L"SRU_Dragon6.1.1"
+#define BLUE_BUFF_NAME1								L"SRU_Blue7.1.1"
+#define BLUE_BUFF_NAME2								L"SRU_Blue1.1.1"
+#define RED_BUFF_NAME1								L"SRU_Red4.1.1"
+#define RED_BUFF_NAME2								L"SRU_Red4.1.1"
 
+#define BLUE_CAMP_SPRING_NAME						L"Turret_OrderTurretShrine_A"
+#define RED_CAMP_SPRING_NAME						L"Turret_ChaosTurretShrine_A"
 
-
+#define SKILLNAME_SUMMONERHASTE						L"summonerhaste"
+#define SKILLTIME_SUMMONERHASTE						3 * 60 * 1000
+#define SKILLNAME_SUMMONERHEAL						L"summonerheal"
+#define SKILLTIME_SUMMONERHEAL						4 * 60 * 1000
+#define SKILLNAME_ITEMVOIDGATE						L"ItemVoidGate"
+#define SKILLTIME_ITEMVOIDGATE						1 * 60 * 1000
 ///////Equment///////////////////////////////////////////////////////////////////
+#define EQUMENT_ID_红药								0x0
 #define EQUMENT_ID_蓝水晶							0x403
 #define EQUMENT_ID_女神之泪							0xBFE
 #define EQUMENT_ID_速度之靴							0x3E9
@@ -212,6 +233,21 @@ enum em_Skill_Type
 	em_Skill_Type_UnDirectional, // 非指向性技能
 	em_Skill_Type_Buff_Self,		// Buff技能
 	em_Skill_Type_Self_UnDirectional // 非指向性的技能, 不过是以自己坐标
+};
+
+struct ResSkillInfo
+{
+	em_Skill_Type	emSkillType;
+	float			fSkillDis;
+};
+struct ResSkill
+{
+	em_Hero_Pro		emHeroPro;
+	wstring			HeroName;
+	ResSkillInfo    ResSkillInfoQ;
+	ResSkillInfo    ResSkillInfoW;
+	ResSkillInfo    ResSkillInfoE;
+	ResSkillInfo    ResSkillInfoR;
 };
 
 struct ACCOUNT_INFO

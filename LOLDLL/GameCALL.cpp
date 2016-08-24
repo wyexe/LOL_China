@@ -1,6 +1,12 @@
 #include "stdafx.h"
 #include "GameCALL.h"
 
+CGameCALL& CGameCALL::GetInstance()
+{
+	static CGameCALL GameCALL;
+	return GameCALL;
+}
+
 BOOL CGameCALL::PlayerMove(_In_ CONST Point& TarPoint) CONST
 {
 	return TRUE;

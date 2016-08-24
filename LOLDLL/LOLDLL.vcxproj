@@ -120,19 +120,25 @@
     <ClCompile Include="..\..\MyTools\MyTools\DES.cpp" />
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Creep.cpp" />
+    <ClCompile Include="CreepServices.cpp" />
     <ClCompile Include="Equment.cpp" />
+    <ClCompile Include="EqumentServices.cpp" />
+    <ClCompile Include="FieldFight.cpp" />
+    <ClCompile Include="FightServices.cpp" />
     <ClCompile Include="GameCALL.cpp" />
     <ClCompile Include="GameDlg.cpp" />
     <ClCompile Include="GameRes.cpp" />
     <ClCompile Include="GameVariable.cpp" />
     <ClCompile Include="Hero.cpp" />
     <ClCompile Include="HeroBuff.cpp" />
+    <ClCompile Include="HeroFight.cpp" />
     <ClCompile Include="HumanBaseObject.cpp" />
     <ClCompile Include="LOLDLL.cpp" />
     <ClCompile Include="ObjectExtend.cpp" />
     <ClCompile Include="ObjectTraverse.cpp" />
     <ClCompile Include="Person.cpp" />
     <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="SkillServices.cpp" />
     <ClCompile Include="Solider.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -164,8 +170,12 @@
     <ClInclude Include="..\..\MyTools\MyTools\RC4.hpp" />
     <ClInclude Include="..\..\MyTools\MyTools\ToolsPublic.h" />
     <ClInclude Include="Creep.h" />
+    <ClInclude Include="CreepServices.h" />
     <ClInclude Include="Equment.h" />
     <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="EqumentServices.h" />
+    <ClInclude Include="FieldFight.h" />
+    <ClInclude Include="FightServices.h" />
     <ClInclude Include="GameCALL.h" />
     <ClInclude Include="GameDlg.h" />
     <ClInclude Include="GameRes.h" />
@@ -173,6 +183,7 @@
     <ClInclude Include="GameVariable.h" />
     <ClInclude Include="Hero.h" />
     <ClInclude Include="HeroBuff.h" />
+    <ClInclude Include="HeroFight.h" />
     <ClInclude Include="HumanBaseObject.h" />
     <ClInclude Include="LOLDLL.h" />
     <ClInclude Include="ObjectExtend.h" />
@@ -180,6 +191,7 @@
     <ClInclude Include="Person.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Skill.h" />
+    <ClInclude Include="SkillServices.h" />
     <ClInclude Include="Solider.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

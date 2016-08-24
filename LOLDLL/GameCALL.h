@@ -9,6 +9,8 @@ public:
 	CGameCALL() = default;
 	~CGameCALL() = default;
 
+	static CGameCALL& GetInstance();
+
 	// ×ßÂ·
 	BOOL PlayerMove(_In_ CONST Point& TarPoint) CONST;
 

@@ -3,7 +3,10 @@
 
 #include "GameStruct.h"
 
-
+#define GameRun			(TRUE)
+#define LOLSleep(x)		CGameVariable::GetInstance().Sleep(x)
+#define LOLMove(x,y)	CPerson::GetInstance().Move(x); \
+						LOLSleep(y);
 class CGameVariable
 {
 public:
@@ -33,6 +36,7 @@ public:
 	BOOL  PushMainThreadActionPtr(_In_ std::function<VOID(VOID)> Worker) CONST throw();
 	BOOL  DoMainThreadActionPtr(_In_ std::function<VOID(std::queue<MainThreadActionPtrInfo>&)> Worker) CONST throw();
 
+	BOOL Sleep(_In_ DWORD dwSleepTime) CONST;
 private:
 	DWORD& GeVariableReferenceByID(_In_ DWORD VarID) CONST throw();
 	

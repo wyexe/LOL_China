@@ -49,6 +49,9 @@
     <Filter Include="Game\Object\Other">
       <UniqueIdentifier>{6ee0437a-2192-4e8c-9b0a-96aa7916c74f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Fight">
+      <UniqueIdentifier>{84ceb935-aa0f-4e23-ae34-cf8ebc539584}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -157,6 +160,24 @@
       <Filter>Game\ObjectServices</Filter>
     </ClCompile>
     <ClCompile Include="ObjectExtend.cpp">
+      <Filter>Game\ObjectServices</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillServices.cpp">
+      <Filter>Game\ObjectServices</Filter>
+    </ClCompile>
+    <ClCompile Include="FieldFight.cpp">
+      <Filter>Game\Fight</Filter>
+    </ClCompile>
+    <ClCompile Include="HeroFight.cpp">
+      <Filter>Game\Fight</Filter>
+    </ClCompile>
+    <ClCompile Include="EqumentServices.cpp">
+      <Filter>Game\ObjectServices</Filter>
+    </ClCompile>
+    <ClCompile Include="CreepServices.cpp">
+      <Filter>Game\ObjectServices</Filter>
+    </ClCompile>
+    <ClCompile Include="FightServices.cpp">
       <Filter>Game\ObjectServices</Filter>
     </ClCompile>
   </ItemGroup>
@@ -288,6 +309,24 @@
       <Filter>Game\ObjectServices</Filter>
     </ClInclude>
     <ClInclude Include="ObjectExtend.h">
+      <Filter>Game\ObjectServices</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillServices.h">
+      <Filter>Game\ObjectServices</Filter>
+    </ClInclude>
+    <ClInclude Include="FieldFight.h">
+      <Filter>Game\Fight</Filter>
+    </ClInclude>
+    <ClInclude Include="HeroFight.h">
+      <Filter>Game\Fight</Filter>
+    </ClInclude>
+    <ClInclude Include="EqumentServices.h">
+      <Filter>Game\ObjectServices</Filter>
+    </ClInclude>
+    <ClInclude Include="CreepServices.h">
+      <Filter>Game\ObjectServices</Filter>
+    </ClInclude>
+    <ClInclude Include="FightServices.h">
       <Filter>Game\ObjectServices</Filter>
     </ClInclude>
   </ItemGroup>

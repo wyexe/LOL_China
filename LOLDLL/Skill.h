@@ -8,8 +8,11 @@ class CSkill : public CBaseObject
 {
 public:
 	CSkill();
-	CSkill(_In_ DWORD dwNodeBase_);
+	CSkill(_In_ UINT uIndex_, _In_ DWORD dwNodeBase_);
 	~CSkill() = default;
+
+	// 获取Index
+	em_Skill_Index GetSkillIndex() CONST;
 
 	// 技能等级
 	DWORD GetLevel() CONST;
@@ -27,7 +30,12 @@ public:
 	BOOL IsCouldUse() CONST;
 
 	// 使用技能
-	BOOL UseSkill(CONST CHumanBaseObject& HumanBaseObject_) CONST;
+	BOOL UseSkill(_In_ CONST CHumanBaseObject& HumanBaseObject_, _In_ em_Skill_Type emSkillType) CONST;
+
+	// 物品技能参数
+	DWORD GetItemSkillParameter() CONST;
+private:
+	UINT uIndex;
 };
 
 

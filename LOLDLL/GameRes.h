@@ -21,20 +21,7 @@ private:
 		em_Hero_Pro emHeroPro;
 		vector<DWORD> EqumentIdVec;
 	};
-	struct ResSkillInfo
-	{
-		em_Skill_Type	emSkillType;
-		float			fSkillDis;
-	};
-	struct ResSkill
-	{
-		em_Hero_Pro		emHeroPro;
-		wstring			HeroName;
-		ResSkillInfo    ResSkillInfoQ;
-		ResSkillInfo    ResSkillInfoW;
-		ResSkillInfo    ResSkillInfoE;
-		ResSkillInfo    ResSkillInfoR;
-	};
+	
 	struct tagHeroSp
 	{
 		em_Hero_Pro		emHeroPro;
@@ -54,12 +41,21 @@ public:
 	// 大龙
 	CONST Point& GetBaronPoint() CONST throw();
 
+	// 塔
+	cwstring* GetCrystalTurretNameByCampAndType(_In_ em_Camp emCamp, _In_ em_Path_Type emPathType) CONST throw();
+
+	// 获取当前英雄的默认路径
+	em_Path_Type GetDefaultPathTypeByHero(_In_ em_Hero_Pro emHeroPro) CONST throw();
+
 	// BaseName
 	// 获取基地名称
 	CONST cwstring& GetBaseNameByCamp(_In_ em_Camp emCamp) CONST throw();
 
 	// Equment
-	auto GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqumentId, _Out_opt_ DWORD& dwEuqmentId) CONST throw() -> CONST ResEqument*;
+	auto GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqumentId) CONST throw() -> CONST ResEqument*;
+
+	// 获取装备列表
+	auto GetEqumentPriceById(_In_ DWORD dwEqumentId) CONST throw()->CONST ResEqument*;
 
 	// Skill
 	// 获取英雄的技能用法介绍
@@ -83,9 +79,6 @@ private:
 
 	// 获取英雄的所有装备列表
 	auto GetResEuqmentVecByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() ->CONST vector<DWORD>*;
-
-	// 获取装备列表
-	auto GetEqumentPriceById(_In_ DWORD dwEqumentId) CONST throw() -> CONST ResEqument*;
 
 	// 获取所有英雄的技能加点大全
 	auto GetHeroSpVec() CONST throw() ->CONST vector<tagHeroSp>&;
