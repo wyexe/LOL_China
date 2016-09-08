@@ -138,12 +138,12 @@ BOOL CObjectExtend::GetLatelySoliderByCamp(_In_ em_Camp emCamp, _In_ float fDis,
 
 UINT CObjectExtend::GetEnemyHeroCountByDis(_In_ float fDis) CONST
 {
-	return GetAroundHumanTypeCount<CHero>(CObjectExtend::em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), fDis);
+	return GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), fDis);
 }
 
 UINT CObjectExtend::GetEnemySoliderCountByDis(_In_ float fDis) CONST
 {
-	return GetAroundHumanTypeCount<CSolider>(CObjectExtend::em_Human_Type_Solider, CPerson::GetInstance().GetEnemyCamp(), fDis);
+	return GetAroundHumanTypeCount<CSolider>(em_Human_Type_Solider, CPerson::GetInstance().GetEnemyCamp(), fDis);
 }
 
 UINT CObjectExtend::GetAllySoliderCountByDis(_In_ CONST Point& FixPt, _In_ float fDis) CONST

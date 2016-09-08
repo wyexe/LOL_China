@@ -13,6 +13,9 @@
 /* GameBase                                                             */
 /************************************************************************/
 
+#define 人物基址										0x17A7C30
+#define 环境基址										0x27CBA5C
+#define BUFF基址										0x17A6B00
 
 
 
@@ -28,18 +31,21 @@
 
 
 
+#define HP偏移										0x54
+#define MAXHP偏移									0x58
+#define MP偏移										0x214
+#define MAXMP偏移									0x280
+#define 坐标偏移X									0x4C
+#define 英雄等级虚函数偏移							0x334
+#define 人物技能点虚函数偏移							0xBC
+#define 人物技能点偏移								0x40
+#define 金钱偏移										0x12E4
 
 
-
-
-
-
-
-
-
-
-
-
+// 基本固定不变的
+#define 坐标偏移Y									坐标偏移X + 0x4
+#define 坐标偏移Z									坐标偏移Y + 0x4
+#define 英雄名称偏移									0x9A0
 /************************************************************************/
 /* GameMacro                                                            */
 /************************************************************************/
@@ -68,6 +74,62 @@
 #define SKILLTIME_SUMMONERHEAL						4 * 60 * 1000
 #define SKILLNAME_ITEMVOIDGATE						L"ItemVoidGate"
 #define SKILLTIME_ITEMVOIDGATE						1 * 60 * 1000
+
+
+#define HERO_BUFF_ASHE_Q							0xE
+#define HERO_BUFF_MASTERYI_W						0x0
+#define HERO_BUFF_MISSFORTUNE_W						0x19
+#define HERO_BUFF_GAREN_Q							0x0
+#define HERO_BUFF_GAREN_W							0x0
+#define HERO_BUFF_MALZAHAR_R						0x0
+#define HERO_BUFF_NUNU_R							0x0
+#define HERO_BUFF_SJUANI_W							0x0
+#define HERO_BUFF_TRISTANA_Q						0x0
+#define HERO_BUFF_TRUNDLE_Q							0x0
+#define HERO_BUFF_RUMBLE_Q							0x0
+#define HERO_BUFF_RUMBLE_W							0x0
+#define HERO_BUFF_URGOT_W							0x0
+#define HERO_BUFF_TEEMO_W							0x0
+#define HERO_BUFF_FIORA_E							0x0
+#define HERO_BUFF_MORDEKAISER_Q						0x0
+#define HERO_BUFF_NAUTILUS_W						0x0
+#define HERO_BUFF_SIVIR_W							0x0
+#define HERO_BUFF_SIVIR_E							0x0
+#define HERO_BUFF_KOGMAW_W							0x0
+#define HERO_BUFF_ANNIE_E							0x0
+#define HERO_BUFF_ANNIE_R							0x0
+#define HERO_BUFF_AMUMU_W							0x0
+#define HERO_BUFF_BLITZCRANK_W						0x0
+#define HERO_BUFF_BLITZCRANK_E						0x0
+#define HERO_BUFF_DARIUS_W							0x0
+#define HERO_BUFF_DRMUNDO_W							0x0
+#define HERO_BUFF_DRMUNDO_E							0x0
+#define HERO_BUFF_FIDDLESTICKS_W					0x0
+#define HERO_BUFF_FIZZ_W							0x0
+#define HERO_BUFF_GRAGAS_W							0x0
+#define HERO_BUFF_ILLAOI_W							0x0
+#define HERO_BUFF_IRELIA_W							0x0
+#define HERO_BUFF_JARVANIV_W						0x0
+#define HERO_BUFF_JAX_W								0x0
+#define HERO_BUFF_JHIN_R							0x0
+#define HERO_BUFF_KARMA_E							0x0
+#define HERO_BUFF_KARMA_R							0x0
+#define HERO_BUFF_KATARINA_R						0x0
+#define HERO_BUFF_LEONA_Q							0x0
+#define HERO_BUFF_MALPHITE_W						0x0
+#define HERO_BUFF_MONKEYKING_Q						0x0
+#define HERO_BUFF_MONKEYKING_W						0x0
+#define HERO_BUFF_MORGANA_E							0x0
+#define HERO_BUFF_NASUS_Q							0x0
+#define HERO_BUFF_OLAF_W							0x0
+#define HERO_BUFF_OLAF_R							0x0
+#define HERO_BUFF_SION_W							0x0
+#define HERO_BUFF_POPPY_W							0x0
+#define HERO_BUFF_RAMMUS_W							0x0
+#define HERO_BUFF_RENEKTON_W						0x0
+#define HERO_BUFF_SONA								0x0
+#define HERO_BUFF_XINZHAO_Q							0x0
+#define HERO_BUFF_XINZHAO_W							0x0
 ///////Equment///////////////////////////////////////////////////////////////////
 #define EQUMENT_ID_红药								0x0
 #define EQUMENT_ID_蓝水晶							0x403
@@ -153,6 +215,20 @@ struct Point
 	}
 };
 
+struct RoundPoint
+{
+	Point Central;
+	float fRange;
+};
+
+enum em_Human_Type
+{
+	em_Human_Type_Solider,
+	em_Human_Type_Turret,
+	em_Human_Type_Hero,
+	em_Human_Type_Unknow
+};
+
 enum em_GameCmd
 {
 	em_GameCmd_None,
@@ -185,19 +261,19 @@ enum em_Path_Type
 
 enum em_Hero_Pro
 {
+	em_Hero_Pro_None,			// 未知
 	em_Hero_Pro_Ryze,			// 流浪法师
-	em_Hero_Pro_Garen,			// 德玛西亚
 	em_Hero_Pro_Ashe,			// 寒冰射手
-	em_Hero_Pro_MissFortune,	// 赏金猎人
-	em_Hero_Pro_Ezreal,			// 探险家
 	em_Hero_Pro_MasterYi,		// 无极剑圣
+	em_Hero_Pro_MissFortune,	// 赏金猎人
+	em_Hero_Pro_Garen,			// 德玛西亚
 	em_Hero_Pro_Malzahar,		// 虚空先知
+	em_Hero_Pro_Ezreal,			// 探险家
 	em_Hero_Pro_Chogath,		// 虚空恐惧
 	em_Hero_Pro_Nunu,			// 雪人骑士
 	em_Hero_Pro_Heimerdinger,	// 大发明家
 	em_Hero_Pro_Graves,			// 法外狂徒
 	em_Hero_Pro_Swain,			// 策士统领
-	em_Hero_Pro_Annie,			// 黑暗之女
 	em_Hero_Pro_Vayne,			// 暗夜猎手
 	em_Hero_Pro_Maokai,			// 扭曲树精
 	em_Hero_Pro_Veigar,			// 邪恶小法师
@@ -206,7 +282,6 @@ enum em_Hero_Pro
 	em_Hero_Pro_Galio,			// 哨兵之殇
 	em_Hero_Pro_Lucian,			// 圣枪游侠
 	em_Hero_Pro_Trundle,		// 巨魔之王
-	em_Hero_Pro_Syndra,			// 暗黑元首
 	em_Hero_Pro_Aatrox,			// 暗裔剑魔
 	em_Hero_Pro_Taric,			// 宝石骑士
 	em_Hero_Pro_Rumble,			// 机械公敌
@@ -216,15 +291,46 @@ enum em_Hero_Pro
 	em_Hero_Pro_Caitlyn,		// 皮城女警
 	em_Hero_Pro_Corki,			// 英勇投弹手
 	em_Hero_Pro_Fiora,			// 无双剑姬
-	em_Hero_Pro_Kennen,			// 狂暴之心
 	em_Hero_Pro_Mordekaiser,	// 铁铠冥魂
 	em_Hero_Pro_Nautilus,		// 深海泰坦
-	em_Hero_Pro_RekSai,			// 虚空遁地兽
 	em_Hero_Pro_Sivir,			// 战争女神
-	em_Hero_Pro_Thresh,			// 魂锁典狱长
-	em_Hero_Pro_TwistedFate,	// 卡牌大师
 	em_Hero_Pro_KogMaw,			// 深渊巨口
-	em_Hero_Pro_Ahri			// 九尾妖狐
+	em_Hero_Pro_Annie,			// 黑暗之女
+	em_Hero_Pro_Akali,			// 阿卡丽
+	em_Hero_Pro_Alistar,		// 牛头酋长
+	em_Hero_Pro_Amumu,			// 殇之木乃伊
+	em_Hero_Pro_Blitzcrank,		// 蒸汽机器人
+	em_Hero_Pro_Brand,			// 复仇焰魂
+	em_Hero_Pro_Cassiopeia,		// 魔蛇之拥
+	em_Hero_Pro_Darius,			// 诺克萨斯之手
+	em_Hero_Pro_DrMundo,		// 蒙多
+	em_Hero_Pro_Ekko,			// 艾克
+	em_Hero_Pro_FiddleSticks,	// 末日使者
+	em_Hero_Pro_Fizz,			// 潮汐海灵
+	em_Hero_Pro_Gragas,			// 酒桶
+	em_Hero_Pro_Illaoi,			// 海兽祭司
+	em_Hero_Pro_Itrlia,			// 刀锋意志
+	em_Hero_Pro_JarvanIV,		// 德玛西亚皇子
+	em_Hero_Pro_Jax,			// 武器大师
+	em_Hero_Pro_Jhin,			// 戏命师
+	em_Hero_Pro_Jinx,			// 暴走萝莉
+	em_Hero_Pro_Karma,			// 天启者
+	em_Hero_Pro_Katarina,		// 不详之刃
+	em_Hero_Pro_Leona,			// 曙光女神
+	em_Hero_Pro_Lux,			// 光辉女郎
+	em_Hero_Pro_Malphite,		// 熔岩巨兽
+	em_Hero_Pro_MonkeyKing,		// 齐天大圣
+	em_Hero_Pro_Morgana,		// 堕落天使
+	em_Hero_Pro_Nasus,			// 沙漠死神
+	em_Hero_Pro_Olaf,			// 狂战士
+	em_Hero_Pro_Sion,			// 亡灵战神
+	em_Hero_Pro_Poppy,			// 圣锤之毅
+	em_Hero_Pro_Rammus,			// 披甲龙龟
+	em_Hero_Pro_Renekton,		// 荒漠屠夫
+	em_Hero_Pro_Sona,			// 琴瑟仙女
+	em_Hero_Pro_Velkoz,			// 虚空之眼
+	em_Hero_Pro_XinZhao,		// 德邦总管
+	em_Hero_Pro_Ziggs,			// 爆破鬼才
 };
 
 enum em_Skill_Type

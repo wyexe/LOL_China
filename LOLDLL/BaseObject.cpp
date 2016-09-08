@@ -17,5 +17,7 @@ DWORD CBaseObject::GetNodeBase() CONST
 
 cwstring& CBaseObject::GetName() CONST
 {
+	if (wsName.empty())
+		CCharacter::ReadUTF8Text(GetNodeBase() + 0x20, wsName);
 	return wsName;
 }

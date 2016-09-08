@@ -83,7 +83,7 @@ em_Path_Type CGameRes::GetDefaultPathTypeByHero(_In_ em_Hero_Pro emHeroPro) CONS
 	case em_Hero_Pro_Ryze: // 流浪法师中单
 		return em_Path_Type::Path_Type_Top;
 	case em_Hero_Pro_Swain: case em_Hero_Pro_Ashe: case em_Hero_Pro_Ezreal:  case em_Hero_Pro_Chogath:  case  em_Hero_Pro_Maokai:
-	case em_Hero_Pro_MissFortune: case em_Hero_Pro_Sejuani: case em_Hero_Pro_Galio: case em_Hero_Pro_KogMaw: case em_Hero_Pro_Ahri:
+	case em_Hero_Pro_MissFortune: case em_Hero_Pro_Sejuani: case em_Hero_Pro_Galio: case em_Hero_Pro_KogMaw:
 		return em_Path_Type::Path_Type_Middle;
 	case em_Hero_Pro_Malzahar: case em_Hero_Pro_MasterYi: case em_Hero_Pro_Graves: case em_Hero_Pro_Vayne:
 	case em_Hero_Pro_Heimerdinger: case em_Hero_Pro_Nunu: case em_Hero_Pro_Garen: case em_Hero_Pro_Veigar:
@@ -283,11 +283,12 @@ auto CGameRes::GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqu
 
 auto CGameRes::GetResSkillByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() -> CONST ResSkill*
 {
-	CONST static vector<ResSkill> vlst = {
-		{em_Hero_Pro_Ryze,L"瑞兹",{ em_Skill_Type::em_Skill_Type_UnDirectional , 7},{ em_Skill_Type::em_Skill_Type_Directional, 5},{ em_Skill_Type::em_Skill_Type_Directional, 5},{ em_Skill_Type::em_Skill_Type_Self_UnDirectional, 10}},
-	};
+	return CLPublic::Vec_find_if(GetResSkillList(), [&emHeroPro](CONST auto& itm) { return itm.emHeroPro == emHeroPro; });
+}
 
-	return CLPublic::Vec_find_if(vlst, [&emHeroPro](CONST auto& itm) { return itm.emHeroPro == emHeroPro; });
+auto CGameRes::GetResSkillByHero(_In_ cwstring& wsHeroName) CONST throw()->CONST ResSkill*
+{
+	return CLPublic::Vec_find_if(GetResSkillList(), [&wsHeroName](CONST auto& itm) { return itm.HeroName == wsHeroName; });
 }
 
 CONST em_Skill_Index* CGameRes::GetSPByHeroLevel(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLevel) CONST throw()
@@ -313,6 +314,15 @@ auto CGameRes::GetHeroSpVec() CONST throw() -> CONST vector<tagHeroSp>&
 			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,
 		} },
 	};
+	return vlst;
+}
+
+CONST vector<ResSkill>& CGameRes::GetResSkillList() CONST  throw()
+{
+	CONST static vector<ResSkill> vlst = {
+		{ em_Hero_Pro_Ryze,L"瑞兹",{ em_Skill_Type::em_Skill_Type_UnDirectional , 7 },{ em_Skill_Type::em_Skill_Type_Directional, 5 },{ em_Skill_Type::em_Skill_Type_Directional, 5 },{ em_Skill_Type::em_Skill_Type_Self_UnDirectional, 10 } },
+	};
+
 	return vlst;
 }
 

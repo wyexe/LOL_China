@@ -8,6 +8,8 @@ class CHeroBuff;
 class CEqument;
 class CSkill;
 class CReep;
+class CSolider;
+class CTurret;
 class CObjectTraverse
 {
 public:
@@ -17,19 +19,28 @@ public:
 	// 获取当前英雄的Buff
 	UINT GetCurrentHeroBuffList(_Out_ vector<CHeroBuff>& vlst) CONST;
 
-	enum em_Human_Type
-	{
-		em_Human_Type_Solider,
-		em_Human_Type_Turret,
-		em_Human_Type_Hero,
-	};
-
+	
 	// 人物类的Object遍历
 	template<class T>
-	UINT GetHumanTypeListByType(_In_ em_Human_Type emHumanType, _In_ em_Camp emCamp, vector<T>& vlst) CONST
+	UINT GetHumanTypeListByType(_In_ em_Human_Type emHumanType, _In_ em_Camp emCamp, _In_ vector<T>& vlst) CONST
 	{
 		vlst.clear();
-		return 0;
+		DWORD dwArrayHead = ReadDWORD(环境基址 + 0x0);
+		UINT uCount = (ReadDWORD(环境基址 + 0x4) - dwArrayHead) >> 0x2;
+		for (UINT i = 0;i < uCount; ++i)
+		{
+			DWORD dwObj = ReadDWORD(dwArrayHead + i * 4);
+			if(ReadDWORD(dwObj + 0x110) == NULL)
+				continue;
+
+			T tmp(dwObj);
+			if(tmp.GetHp() == NULL || tmp.GetCurrentCamp() != emCamp || tmp.GetHumanType() != emHumanType)
+				continue;
+
+			vlst.push_back(tmp);
+		}
+
+		return vlst.size();
 	}
 
 	template<class T>

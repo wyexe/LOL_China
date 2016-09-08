@@ -5,6 +5,7 @@
 #include "GameRes.h"
 #include "Person.h"
 #include "Turret.h"
+#include "Solider.h"
 
 #define _SELF L"CFightServices.cpp"
 
@@ -27,7 +28,7 @@ CFightServices& CFightServices::GetInstance()
 VOID CFightServices::WaitToShowSolider() CONST
 {
 	while (GameRun && (CPerson::GetInstance().GetNodeBase() == NULL || CPerson::GetInstance().GetMoney() == 0) && LOLSleep(1000));
-	while (GameRun && CObjectExtend::GetInstance().GetAroundHumanTypeCount<CSolider>(CObjectExtend::em_Human_Type_Solider, CPerson::GetInstance().GetCurrentCamp(), 1000.0f) == 0 && LOLSleep(1000));
+	while (GameRun && CObjectExtend::GetInstance().GetAroundHumanTypeCount<CSolider>(em_Human_Type_Solider, CPerson::GetInstance().GetCurrentCamp(), 1000.0f) == 0 && LOLSleep(1000));
 }
 
 

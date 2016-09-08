@@ -16,15 +16,17 @@ CHeroBuff::~CHeroBuff()
 
 DWORD CHeroBuff::GetId() CONST
 {
-	return 0;
+	return ReadDWORD(GetNodeBase() + 0x1C);
 }
 
 DWORD CHeroBuff::GetCount() CONST
 {
-	return 0;
+	return ReadDWORD(GetNodeBase() + 0x28);
 }
 
 cwstring& CHeroBuff::GetName() CONST
 {
+	if (wsName.empty())
+		CCharacter::ReadUTF8Text(GetNodeBase() + 0xC, wsName);
 	return wsName;
 }

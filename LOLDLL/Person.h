@@ -13,9 +13,6 @@ public:
 
 	BOOL SetPersonBase(_In_ DWORD dwNodeBase_);
 
-	// 人物等级
-	DWORD GetLevel() CONST;
-
 	// 获取当前英雄的敌对阵营
 	em_Camp GetEnemyCamp() CONST;
 

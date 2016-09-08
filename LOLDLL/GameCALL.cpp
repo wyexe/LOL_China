@@ -56,3 +56,8 @@ BOOL CGameCALL::GetObjectNamePtrByAddr(_In_ DWORD dwObjectAddr, _Out_ wstring& O
 {
 	return TRUE;
 }
+
+BOOL CGameCALL::UsingItem(_In_ DWORD dwItemParameter) CONST
+{
+	return TRUE;
+}

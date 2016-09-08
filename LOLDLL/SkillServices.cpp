@@ -6,6 +6,7 @@
 #include "GameCALL.h"
 #include "ObjectExtend.h"
 #include "Skill.h"
+#include "HumanBaseObject.h"
 
 #define _SELF L"SkillServices.cpp"
 CSkillServices::CSkillServices()
@@ -24,12 +25,30 @@ CSkillServices& CSkillServices::GetInstance()
 
 BOOL CSkillServices::IsSkillCooldown(_In_ em_Skill_Index emSkillIndex) CONST
 {
-	return TRUE;
+	CSkill Skill;
+	return CObjectExtend::GetInstance().ExistSkillByIndex(emSkillIndex, &Skill) ? Skill.IsCouldUse() : FALSE;
 }
 
-BOOL CSkillServices::UseSkill(_In_ em_Skill_Index emSkillIndex) CONST
+BOOL CSkillServices::UseSkill(_In_ em_Skill_Index emSkillIndex, _In_ CONST CHumanBaseObject& Tar) CONST
 {
-	return TRUE;
+	CONST ResSkillInfo* pResSkillInfo = GetSkillResInfo(emSkillIndex);
+	if (pResSkillInfo == nullptr)
+		return FALSE;
+
+	CSkill Skill;
+	if (!CObjectExtend::GetInstance().ExistSkillByIndex(emSkillIndex, &Skill))
+		return FALSE;
+
+	// 技能冷却应该在上层就判断了. 这一层就不重复判断了!
+
+	if (pResSkillInfo->emSkillType == em_Skill_Type::em_Skill_Type_Directional || pResSkillInfo->emSkillType == em_Skill_Type::em_Skill_Type_UnDirectional)
+	{
+		// 超出技能范围之外了, 先走过去!
+		if (Tar.GetDis() > pResSkillInfo->fSkillDis)
+			return LOLMove(Tar.GetPoint(), 100);
+	}
+
+	return Skill.UseSkill(Tar, pResSkillInfo->emSkillType);
 }
 
 BOOL CSkillServices::LevelUpSkill() CONST
@@ -96,4 +115,29 @@ BOOL CSkillServices::UseUnDirectionalItemSkill(_In_ cwstring& wsSkillName) CONST
 		return FALSE;
 
 	return Skill.UseSkill(CPerson::GetInstance(), em_Skill_Type::em_Skill_Type_Self_UnDirectional);
+}
+
+CONST ResSkillInfo* CSkillServices::GetSkillResInfo(_In_ em_Skill_Index emSkillIndex) CONST
+{
+	auto pResSkill = GetCurrentHeroSkillConfig();
+	if (pResSkill == nullptr)
+	{
+		LogMsgBox(LOG_LEVEL_EXCEPTION, L"不存在当前英雄的技能配置:%X", CPerson::GetInstance().GetHeroPro());
+		return static_cast<CONST ResSkillInfo*>(nullptr);
+	}
+
+	switch (emSkillIndex)
+	{
+	case em_Skill_Index_Q:
+		return &pResSkill->ResSkillInfoQ;
+	case em_Skill_Index_W:
+		return &pResSkill->ResSkillInfoW;
+	case em_Skill_Index_E:
+		return &pResSkill->ResSkillInfoE;
+	case em_Skill_Index_R:
+		return &pResSkill->ResSkillInfoR;
+	default:
+		break;
+	}
+	return static_cast<CONST ResSkillInfo*>(nullptr);
 }

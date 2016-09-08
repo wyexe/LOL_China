@@ -13,11 +13,6 @@ CTurret::~CTurret()
 {
 }
 
-cwstring& CTurret::GetName() CONST
-{
-	return wsName;
-}
-
 BOOL CTurret::IsCrystalTurret() CONST
 {
 	return TRUE;

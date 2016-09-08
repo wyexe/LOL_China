@@ -13,13 +13,3 @@ CSolider::CSolider() : CHumanBaseObject(NULL)
 CSolider::~CSolider()
 {
 }
-
-cwstring& CSolider::GetName() CONST
-{
-	return wsName;
-}
-
-BOOL CSolider::IsShowInFog() CONST
-{
-	return TRUE;
-}

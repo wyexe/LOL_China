@@ -2,6 +2,7 @@
 #include "CreepServices.h"
 #include "Person.h"
 #include "ObjectExtend.h"
+#include "Hero.h"
 
 CCreepServices::CCreepServices() : ulBlueBuffTick(NULL), ulRedBuffTick(NULL), ulDragonTick(NULL)
 {
@@ -52,7 +53,7 @@ BOOL CCreepServices::IsRefreshDragonBuff() CONST
 
 	// count of team member level > 4  more then 4
 	vector<CHero> vlst;
-	CObjectExtend::GetInstance().GetHumanTypeListByType(CObjectExtend::em_Human_Type_Hero, CPerson::GetInstance().GetCurrentCamp(), vlst);
+	CObjectExtend::GetInstance().GetHumanTypeListByType(em_Human_Type_Hero, CPerson::GetInstance().GetCurrentCamp(), vlst);
 	return CLPublic::Vec_erase_if(vlst, [](CONST auto& itm) { return itm.GetLevel() < 5; });
 }
 

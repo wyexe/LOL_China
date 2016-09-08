@@ -3,18 +3,13 @@
 
 #include "HumanBaseObject.h"
 
+
 class CSolider : public CHumanBaseObject
 {
 public:
 	CSolider();
 	CSolider(_In_ DWORD dwNodeBase_);
 	~CSolider();
-
-	// Ğ¡±øÃû³Æ
-	virtual cwstring& GetName() CONST;
-
-	// ÃÔÎí
-	virtual BOOL IsShowInFog() CONST;
 
 private:
 

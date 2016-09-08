@@ -4,8 +4,6 @@
 #include "ObjectTraverse.h"
 
 class CHero;
-class CSolider;
-class CTurret;
 class CObjectExtend : public CObjectTraverse
 {
 public:

@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "HumanBaseObject.h"
+#include <MyTools/CLPublic.h>
+#include "Person.h"
 
 CHumanBaseObject::CHumanBaseObject() : CBaseObject(NULL), fDis(0)
 {
@@ -16,57 +18,98 @@ CHumanBaseObject::~CHumanBaseObject()
 
 DWORD CHumanBaseObject::GetId() CONST
 {
-	return 0;
+	return ReadDWORD(GetNodeBase() + 0x8);
 }
 
 DWORD CHumanBaseObject::GetHp() CONST
 {
-	return 0;
+	return static_cast<DWORD>(ReadFloat(GetNodeBase() + HPÆ«ÒÆ));
 }
 
 DWORD CHumanBaseObject::GetMaxHp() CONST
 {
-	return 0;
+	return static_cast<DWORD>(ReadFloat(GetNodeBase() + MAXHPÆ«ÒÆ));
 }
 
 DWORD CHumanBaseObject::GetPercentHp() CONST
 {
-	return 0;
+	float fHp = static_cast<float>(GetHp());
+	float fMaxHp = static_cast<float>(GetMaxHp());
+	if (fHp == 0 || fMaxHp == 0)
+		return 0;
+	return static_cast<DWORD>(fHp / fMaxHp * 100);
 }
 
 DWORD CHumanBaseObject::GetMp() CONST
 {
-	return 0;
+	return static_cast<DWORD>(ReadFloat(GetNodeBase() + MPÆ«ÒÆ));
 }
 
 DWORD CHumanBaseObject::GetMaxMp() CONST
 {
-	return 0;
+	return static_cast<DWORD>(ReadFloat(GetNodeBase() + MAXMPÆ«ÒÆ));
 }
 
 DWORD CHumanBaseObject::GetPercentMp() CONST
 {
-	return 0;
+	float fMp = static_cast<float>(GetMp());
+	float fMaxMp = static_cast<float>(GetMaxMp());
+	if (fMp == 0 || fMaxMp == 0)
+		return 0;
+	return static_cast<DWORD>(fMp / fMaxMp * 100);
 }
 
 Point CHumanBaseObject::GetPoint() CONST
 {
-	return Point();
+	return Point(ReadFloat(GetNodeBase() + ×ø±êÆ«ÒÆX), ReadFloat(GetNodeBase() + ×ø±êÆ«ÒÆY), ReadFloat(GetNodeBase() + ×ø±êÆ«ÒÆZ));
 }
 
-float CHumanBaseObject::GetDis(CONST Point& TarPoint) CONST
+float CHumanBaseObject::GetDis(_In_ CONST Point& TarPoint) CONST
 {
-	return 0;
+	return CLPublic::GetDisBy2D(TarPoint, GetPoint()) / 100.0f;
 }
 
 float CHumanBaseObject::GetDis() CONST
 {
-	return 0;
+	return GetDis(CPerson::GetInstance().GetPoint());
 }
 
-DWORD CHumanBaseObject::GetTargetId() CONST
+float CHumanBaseObject::SetDis(_In_ CONST Point& TarPoint)
 {
-	return 0;
+	fDis = CLPublic::GetDisBy2D(TarPoint, GetPoint()) / 100.0f;
+	return fDis;
+}
+
+em_Camp CHumanBaseObject::GetCurrentCamp() CONST
+{
+	switch (ReadDWORD(GetNodeBase() + 0x14))
+	{
+	case 0x64:
+		return em_Camp::em_Camp_Blue;
+	case 0xC8:
+		return em_Camp::em_Camp_Red;
+	case 0x12C:
+		return em_Camp::em_Camp_Neutral;
+	default:
+		break;
+	}
+	return em_Camp::em_Camp_UnKnow;
+}
+
+em_Human_Type CHumanBaseObject::GetHumanType() CONST
+{
+	switch (ReadDWORD(GetNodeBase() + 0x18))
+	{
+	case 0x20005: case 0x2401:
+		return em_Human_Type_Turret;
+	case 0x1401:
+		return em_Human_Type_Hero;
+	case 0xC01:
+		return em_Human_Type_Solider;
+	default:
+		break;
+	};
+	return em_Human_Type_Unknow;
 }
 
 BOOL CHumanBaseObject::IsShowInFog() CONST
@@ -82,6 +125,16 @@ BOOL CHumanBaseObject::Attack() CONST
 BOOL CHumanBaseObject::IsDead() CONST
 {
 	return TRUE;
+}
+
+DWORD CHumanBaseObject::GetSkillParameter() CONST
+{
+	return 0;
+}
+
+DWORD CHumanBaseObject::GetTargetId() CONST
+{
+	return 0;
 }
 
 bool CHumanBaseObject::operator<(CONST CHumanBaseObject& itm) CONST

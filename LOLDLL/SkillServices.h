@@ -3,6 +3,7 @@
 
 #include "ObjectTraverse.h"
 
+class CHumanBaseObject;
 class CSkillServices
 {
 public:
@@ -15,7 +16,7 @@ public:
 	BOOL IsSkillCooldown(_In_ em_Skill_Index emSkillIndex) CONST;
 
 	// 使用技能
-	BOOL UseSkill(_In_ em_Skill_Index emSkillIndex) CONST;
+	BOOL UseSkill(_In_ em_Skill_Index emSkillIndex, _In_ CONST CHumanBaseObject& Tar) CONST;
 
 	// 技能加点
 	BOOL LevelUpSkill() CONST;
@@ -34,6 +35,9 @@ public:
 
 	// 使用非指向性的物品技能
 	BOOL UseUnDirectionalItemSkill(_In_ cwstring& wsSkillName) CONST;
+
+	// 获取施法距离
+	CONST ResSkillInfo* GetSkillResInfo(_In_ em_Skill_Index emSkillIndex) CONST;
 private:
 	DSIABLE_COPY_AND_ASSIGN(CSkillServices);
 };

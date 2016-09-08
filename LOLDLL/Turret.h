@@ -10,9 +10,6 @@ public:
 	CTurret(_In_ DWORD dwNodeBase_);
 	~CTurret();
 
-	// ÅÚËşÃû×Ö
-	virtual cwstring& GetName() CONST;
-
 	// ÊÇ·ñË®¾§Ëş
 	BOOL IsCrystalTurret() CONST;
 private:

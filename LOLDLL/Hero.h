@@ -16,6 +16,9 @@ public:
 	// 迷雾
 	virtual BOOL IsShowInFog() CONST;
 
+	// 人物等级
+	DWORD GetLevel() CONST;
+
 private:
 
 };

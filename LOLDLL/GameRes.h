@@ -60,6 +60,7 @@ public:
 	// Skill
 	// 获取英雄的技能用法介绍
 	auto GetResSkillByHero(_In_ em_Hero_Pro emHeroPro)  CONST throw() -> CONST ResSkill*;
+	auto GetResSkillByHero(_In_ cwstring& wsHeroName) CONST throw()->CONST ResSkill*;
 
 	// 获取英雄的技能点该加哪个点
 	CONST em_Skill_Index* GetSPByHeroLevel(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLevel) CONST throw();
@@ -82,6 +83,9 @@ private:
 
 	// 获取所有英雄的技能加点大全
 	auto GetHeroSpVec() CONST throw() ->CONST vector<tagHeroSp>&;
+
+	// 获取英雄技能用法介绍List
+	CONST vector<ResSkill>& GetResSkillList() CONST throw();
 private:
 	DSIABLE_COPY_AND_ASSIGN(CGameRes);
 };

@@ -139,7 +139,7 @@ BOOL CFieldFight::KillBuffMonster(_In_ CONST Point& TarPoint, _In_ std::function
 	{
 		LOLMove(TarPoint, 500);
 		// Kill Around Enemy Hero
-		while (CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(CObjectExtend::em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), MAX_ATTACK_DIS) > 0 \
+		while (CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), MAX_ATTACK_DIS) > 0 \
 			&& GameRun && !CPerson::GetInstance().IsDead() && AttackHero());
 	}
 
@@ -175,7 +175,7 @@ BOOL CFieldFight::KillDragon() CONST
 		LOLMove(p1, 500);
 
 		// Kill Around Enemy Hero
-		while (CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(CObjectExtend::em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), MAX_ATTACK_DIS) > 0 \
+		while (CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), MAX_ATTACK_DIS) > 0 \
 			&& GameRun && !CPerson::GetInstance().IsDead() && AttackHero());
 
 		if (CPerson::GetInstance().GetDis(p1) < 2.0f)
@@ -186,11 +186,11 @@ BOOL CFieldFight::KillDragon() CONST
 				break;
 
 			// need member more then 4 when self level <= 6
-			if(CPerson::GetInstance().GetLevel() <= 6 && CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(CObjectExtend::em_Human_Type_Hero, CPerson::GetInstance().GetCurrentCamp(), MAX_ATTACK_DIS) >= 4)
+			if(CPerson::GetInstance().GetLevel() <= 6 && CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetCurrentCamp(), MAX_ATTACK_DIS) >= 4)
 				break;
 			
 			// need member more then 3 when self level > 6
-			if (CPerson::GetInstance().GetLevel() > 6 && CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(CObjectExtend::em_Human_Type_Hero, CPerson::GetInstance().GetCurrentCamp(), MAX_ATTACK_DIS) >= 3)
+			if (CPerson::GetInstance().GetLevel() > 6 && CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetCurrentCamp(), MAX_ATTACK_DIS) >= 3)
 				break;
 		}
 
@@ -227,8 +227,8 @@ BOOL CFieldFight::BackToBase() CONST
 		// check exist recall buff!
 		if (!CLPublic::TimeOut_By_Condition(12 * 1000, [] {
 			return GameRun && !CPerson::GetInstance().IsDead() && \
-			CObjectExtend::GetInstance().GetAroundHumanTypeCount<CSolider>(CObjectExtend::em_Human_Type_Solider, CPerson::GetInstance().GetEnemyCamp(), 10.0f) == 0 && \
-			CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(CObjectExtend::em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), 10.0f) == 0;
+			CObjectExtend::GetInstance().GetAroundHumanTypeCount<CSolider>(em_Human_Type_Solider, CPerson::GetInstance().GetEnemyCamp(), 10.0f) == 0 && \
+			CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), 10.0f) == 0;
 		}))
 		{
 			Log(LOG_LEVEL_NORMAL, L"»Ø³ÇÍê±Ï!");
@@ -341,6 +341,11 @@ BOOL CFieldFight::AttackTurret() CONST
 	return Turret.Attack();
 }
 
+BOOL CFieldFight::DoSolider() CONST
+{
+	return TRUE;
+}
+
 BOOL CFieldFight::DodgeSolider() CONST
 {
 	while (GameRun && !CPerson::GetInstance().IsDead() && CFightServices::GetInstance().IsDogeSolider() && BackOff());
@@ -357,6 +362,11 @@ BOOL CFieldFight::AttackSolider() CONST
 		return LOLMove(Solider.GetPoint(), 300);;
 
 	return CHeroFight::GetInstance().KillSolider(Solider);
+}
+
+BOOL CFieldFight::DoHero() CONST
+{
+	return TRUE;
 }
 
 BOOL CFieldFight::DoDgeHero() CONST

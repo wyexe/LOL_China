@@ -14,27 +14,28 @@ public:
 	DWORD GetId() CONST;
 
 	// HP
-	DWORD GetHp() CONST;
-	DWORD GetMaxHp() CONST;
-	DWORD GetPercentHp() CONST;
+	virtual DWORD GetHp() CONST;
+	virtual DWORD GetMaxHp() CONST;
+	virtual DWORD GetPercentHp() CONST;
 
 	// MP
-	DWORD GetMp() CONST;
-	DWORD GetMaxMp() CONST;
-	DWORD GetPercentMp() CONST;
+	virtual DWORD GetMp() CONST;
+	virtual DWORD GetMaxMp() CONST;
+	virtual DWORD GetPercentMp() CONST;
 
 	// 坐标
 	Point GetPoint() CONST;
 
 	// 获取距离
-	float GetDis(CONST Point& TarPoint) CONST;
+	float GetDis(_In_ CONST Point& TarPoint) CONST;
 	float GetDis() CONST;
+	float SetDis(_In_ CONST Point& TarPoint);
 
 	// 当前的阵营
 	em_Camp GetCurrentCamp() CONST;
 
-	// 目标ID
-	DWORD GetTargetId() CONST;
+	// 获取类型
+	em_Human_Type GetHumanType() CONST;
 
 	// 是否显示(否表示在迷雾中)
 	virtual BOOL IsShowInFog() CONST;
@@ -47,6 +48,12 @@ public:
 
 	// 是否挂了
 	BOOL IsDead() CONST;
+
+	// 获取技能释放参数
+	DWORD GetSkillParameter() CONST;
+
+	// 目标
+	DWORD GetTargetId() CONST;
 private:
 	float fDis;
 };
