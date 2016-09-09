@@ -3,7 +3,6 @@
 #include <MyTools/CLPublic.h>
 #include "Equment.h"
 #include "HeroBuff.h"
-#include "Creep.h"
 #include "Skill.h"
 #include "Turret.h"
 #include "Person.h"
@@ -52,27 +51,6 @@ BOOL CObjectExtend::ExistBuffById(_In_ DWORD dwBuffId, _Out_ CHeroBuff* pHeroBuf
 {
 	return ExistHeroBuffByCondition(pHeroBuff, [&dwBuffId](CONST auto& itm) {
 		return itm.GetId() == dwBuffId;
-	});
-}
-
-BOOL CObjectExtend::ExistCreepByCondition(_Out_ CReep* pReep, _In_ std::function<BOOL(CONST CReep&)> Finer) CONST
-{
-	vector<CReep> vlst;
-	GetCreepList(vlst);
-	return CLPublic::Vec_find_if(vlst, pReep, Finer);
-}
-
-BOOL CObjectExtend::ExistCreepById(_In_ DWORD dwCreepId, _Out_ CReep* pReep) CONST
-{
-	return ExistCreepByCondition(pReep, [&dwCreepId](CONST auto& itm) {
-		return itm.GetId() == dwCreepId;
-	});
-}
-
-BOOL CObjectExtend::ExistCreepByName(_In_ cwstring& wsCreepName, _Out_ CReep* pReep) CONST
-{
-	return ExistCreepByCondition(pReep, [&wsCreepName](CONST auto& itm) {
-		return itm.GetName() == wsCreepName;
 	});
 }
 

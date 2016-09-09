@@ -114,7 +114,7 @@ em_Human_Type CHumanBaseObject::GetHumanType() CONST
 
 BOOL CHumanBaseObject::IsShowInFog() CONST
 {
-	return TRUE;
+	return ReadBYTE(GetNodeBase() + ÃÔÎíÆ«ÒÆ1 + ÃÔÎíÆ«ÒÆ2 + ÃÔÎíÆ«ÒÆ3) == 1 ? FALSE : TRUE;
 }
 
 BOOL CHumanBaseObject::Attack() CONST
@@ -124,12 +124,12 @@ BOOL CHumanBaseObject::Attack() CONST
 
 BOOL CHumanBaseObject::IsDead() CONST
 {
-	return TRUE;
+	return ReadDWORD(GetNodeBase() + ÈËÎïËÀÍöÆ«ÒÆ) != NULL;
 }
 
 DWORD CHumanBaseObject::GetSkillParameter() CONST
 {
-	return 0;
+	return ReadDWORD(GetNodeBase() + ¼¼ÄÜOBJÆ«ÒÆ);
 }
 
 DWORD CHumanBaseObject::GetTargetId() CONST

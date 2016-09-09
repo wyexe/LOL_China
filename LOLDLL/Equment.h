@@ -13,9 +13,6 @@ public:
 	//  ˝¡ø
 	UINT  GetCount() CONST throw();
 
-	// Object÷∏’Î
-	DWORD GetObject() CONST throw();
-
 	// ID
 	DWORD GetId() CONST throw();
 };

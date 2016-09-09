@@ -7,7 +7,6 @@
 class CHeroBuff;
 class CEqument;
 class CSkill;
-class CReep;
 class CSolider;
 class CTurret;
 class CObjectTraverse
@@ -58,9 +57,6 @@ public:
 
 	// 初始化技能列表
 	BOOL GetSkillList(_Out_ vector<CSkill>& vlst) CONST;
-
-	// 野怪遍历
-	BOOL GetCreepList(_Out_ vector<CReep>& vlst) CONST;
 
 	virtual void AbstractClass() = NULL;
 private:

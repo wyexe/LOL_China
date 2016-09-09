@@ -16,9 +16,6 @@ public:
 	// 获取当前英雄的敌对阵营
 	em_Camp GetEnemyCamp() CONST;
 
-	// 英雄Object
-	DWORD GetObject() CONST;
-
 	// 获取技能点
 	DWORD GetSp() CONST;
 

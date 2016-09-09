@@ -47,7 +47,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>D:\Visual Studio 2010\Projects\MyTools;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\MyTools;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -119,7 +119,6 @@
     <ClCompile Include="..\..\MyTools\MyTools\CPublic.cpp" />
     <ClCompile Include="..\..\MyTools\MyTools\DES.cpp" />
     <ClCompile Include="BaseObject.cpp" />
-    <ClCompile Include="Creep.cpp" />
     <ClCompile Include="CreepServices.cpp" />
     <ClCompile Include="Equment.cpp" />
     <ClCompile Include="EqumentServices.cpp" />
@@ -169,7 +168,6 @@
     <ClInclude Include="..\..\MyTools\MyTools\DES.h" />
     <ClInclude Include="..\..\MyTools\MyTools\RC4.hpp" />
     <ClInclude Include="..\..\MyTools\MyTools\ToolsPublic.h" />
-    <ClInclude Include="Creep.h" />
     <ClInclude Include="CreepServices.h" />
     <ClInclude Include="Equment.h" />
     <ClInclude Include="BaseObject.h" />

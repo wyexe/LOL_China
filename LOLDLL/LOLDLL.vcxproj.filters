@@ -144,9 +144,6 @@
     <ClCompile Include="BaseObject.cpp">
       <Filter>Game\Object\Other</Filter>
     </ClCompile>
-    <ClCompile Include="Creep.cpp">
-      <Filter>Game\Object\Other</Filter>
-    </ClCompile>
     <ClCompile Include="Equment.cpp">
       <Filter>Game\Object\Other</Filter>
     </ClCompile>
@@ -289,9 +286,6 @@
     </ClInclude>
     <ClInclude Include="Person.h">
       <Filter>Game\Object\HumanType</Filter>
-    </ClInclude>
-    <ClInclude Include="Creep.h">
-      <Filter>Game\Object\Other</Filter>
     </ClInclude>
     <ClInclude Include="Equment.h">
       <Filter>Game\Object\Other</Filter>

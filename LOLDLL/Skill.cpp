@@ -20,27 +20,32 @@ em_Skill_Index CSkill::GetSkillIndex() CONST
 
 DWORD CSkill::GetLevel() CONST
 {
-	return 0;
+	return ReadDWORD(GetNodeBase() + 0x10);
 }
 
 cwstring& CSkill::GetName() CONST
 {
+	if (wsName.empty())
+	{
+		CHAR szText[64] = { 0 };
+		CCharacter::ReadUTF8Text(ReadDWORD(GetNodeBase() + 技能OBJ偏移) + 0x18, wsName);
+	}
 	return wsName;
 }
 
 DWORD CSkill::GetExpendMp() CONST
 {
-	return 0;
+	return static_cast<DWORD>(ReadFloat(ReadDWORD((GetNodeBase() + 技能OBJ偏移) + 技能耗蓝偏移1) + GetLevel() * 4 + 技能耗蓝偏移2));
 }
 
 BOOL CSkill::IsCooldown() CONST
 {
-	return TRUE;
+	return CGameCALL::GetInstance().GetClientTick() > ReadFloat(GetNodeBase() + 0x14);
 }
 
 BOOL CSkill::IsCouldUse() CONST
 {
-	return TRUE;
+	return GetLevel() > 0 && CPerson::GetInstance().GetMp() >= GetExpendMp() && IsCooldown();
 }
 
 BOOL CSkill::UseSkill(_In_ CONST CHumanBaseObject& Tar, _In_ em_Skill_Type emSkillType) CONST
@@ -70,5 +75,5 @@ BOOL CSkill::UseSkill(_In_ CONST CHumanBaseObject& Tar, _In_ em_Skill_Type emSki
 
 DWORD CSkill::GetItemSkillParameter() CONST
 {
-	return 0;
+	return GetNodeBase();
 }

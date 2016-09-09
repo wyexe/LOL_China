@@ -15,5 +15,5 @@ CTurret::~CTurret()
 
 BOOL CTurret::IsCrystalTurret() CONST
 {
-	return TRUE;
+	return ReadDWORD(GetNodeBase() + 0x18) == 0x20005;
 }

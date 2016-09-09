@@ -13,9 +13,6 @@ public:
 	// 英雄名字
 	virtual cwstring& GetName() CONST;
 
-	// 迷雾
-	virtual BOOL IsShowInFog() CONST;
-
 	// 人物等级
 	DWORD GetLevel() CONST;
 

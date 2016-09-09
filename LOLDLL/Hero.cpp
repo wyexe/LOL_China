@@ -22,11 +22,6 @@ cwstring& CHero::GetName() CONST
 	return wsName;
 }
 
-BOOL CHero::IsShowInFog() CONST
-{
-	return TRUE;
-}
-
 DWORD CHero::GetLevel() CONST
 {
 	__try

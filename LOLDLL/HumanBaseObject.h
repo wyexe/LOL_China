@@ -54,6 +54,7 @@ public:
 
 	// Ä¿±ê
 	DWORD GetTargetId() CONST;
+
 private:
 	float fDis;
 };

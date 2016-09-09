@@ -28,12 +28,7 @@ BOOL CPerson::SetPersonBase(_In_ DWORD dwNodeBase_)
 
 em_Camp CPerson::GetEnemyCamp() CONST
 {
-	return em_Camp_Blue;
-}
-
-DWORD CPerson::GetObject() CONST
-{
-	return 0;
+	return GetCurrentCamp() == em_Camp::em_Camp_Blue ? em_Camp::em_Camp_Red : em_Camp::em_Camp_Blue;
 }
 
 DWORD CPerson::GetSp() CONST

@@ -27,13 +27,6 @@ public:
 	// 根据BUFFID判断是否存在buff
 	BOOL ExistBuffById(_In_ DWORD dwBuffId, _Out_ CHeroBuff* pHeroBuff) CONST;
 
-	// 条件遍历野怪
-	BOOL ExistCreepByCondition(_Out_ CReep* pReep, _In_ std::function<BOOL(CONST CReep&)> Finer) CONST;
-
-	// 根据ID查找野怪
-	BOOL ExistCreepById(_In_ DWORD dwCreepId, _Out_ CReep* pReep) CONST;
-	BOOL ExistCreepByName(_In_ cwstring& wsCreepName, _Out_ CReep* pReep) CONST;
-
 	// 技能
 	BOOL ExistSkillByCondition(_Out_ CSkill* pSkill, _In_ std::function<BOOL(CONST CSkill&)> Finder) CONST;
 	BOOL ExistSkillByIndex(_In_ em_Skill_Index emSkillIndex, _Out_ CSkill* pSkill) CONST;
