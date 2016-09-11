@@ -29,7 +29,7 @@ UINT CObjectTraverse::GetCurrentHeroBuffList(_Out_ vector<CHeroBuff>& vlst) CONS
 UINT CObjectTraverse::GetCurrentHeroEqumentList(_Out_ vector<CEqument>& vlst) CONST
 {
 	vlst.clear();
-	DWORD dwAddr = ReadDWORD((人物基址)+装备遍历偏移1 + 装备遍历偏移2);
+	DWORD dwAddr = ReadDWORD(ReadDWORD(人物基址) + 装备遍历偏移1 + 装备遍历偏移2);
 	for (auto i = 0;i < 0x27; ++i)
 	{
 		DWORD dwEqumentObj = ReadDWORD(dwAddr + i * 4);

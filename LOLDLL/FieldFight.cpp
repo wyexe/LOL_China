@@ -260,13 +260,13 @@ BOOL CFieldFight::MoveToLatelyTurret() CONST
 			if (::GetTickCount64() - ulRunFastTick >= SKILLTIME_SUMMONERHASTE)
 			{
 				Log(LOG_LEVEL_NORMAL, L"使用疾跑!");
-				CSkillServices::GetInstance().UseItemSkill(SKILLNAME_SUMMONERHASTE);
+				CSkillServices::GetInstance().UseItemSkill(SKILLNAME_SUMMONERHASTE, em_Skill_Type::em_Skill_Type_Buff_Self);
 				ulRunFastTick = ::GetTickCount64();
 			}
 			else if (::GetTickCount64() - ulAddHpTick >= SKILLTIME_SUMMONERHEAL)
 			{
 				Log(LOG_LEVEL_NORMAL, L"使用回春术!");
-				CSkillServices::GetInstance().UseItemSkill(SKILLNAME_SUMMONERHEAL);
+				CSkillServices::GetInstance().UseItemSkill(SKILLNAME_SUMMONERHEAL, em_Skill_Type::em_Skill_Type_Buff_Self);
 				ulAddHpTick = ::GetTickCount64();
 			}
 		}

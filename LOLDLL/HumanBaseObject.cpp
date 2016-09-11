@@ -61,7 +61,7 @@ DWORD CHumanBaseObject::GetPercentMp() CONST
 
 Point CHumanBaseObject::GetPoint() CONST
 {
-	return Point(ReadFloat(GetNodeBase() + ×ø±êÆ«ÒÆX), ReadFloat(GetNodeBase() + ×ø±êÆ«ÒÆY), ReadFloat(GetNodeBase() + ×ø±êÆ«ÒÆZ));
+	return Point(ReadFloat(GetNodeBase() + ×ø±êÆ«ÒÆX), ReadFloat(GetNodeBase() + ×ø±êÆ«ÒÆZ), ReadFloat(GetNodeBase() + ×ø±êÆ«ÒÆY));
 }
 
 float CHumanBaseObject::GetDis(_In_ CONST Point& TarPoint) CONST
@@ -78,6 +78,11 @@ float CHumanBaseObject::SetDis(_In_ CONST Point& TarPoint)
 {
 	fDis = CLPublic::GetDisBy2D(TarPoint, GetPoint()) / 100.0f;
 	return fDis;
+}
+
+void CHumanBaseObject::SetDis()
+{
+	fDis = GetDis();
 }
 
 em_Camp CHumanBaseObject::GetCurrentCamp() CONST
@@ -114,7 +119,7 @@ em_Human_Type CHumanBaseObject::GetHumanType() CONST
 
 BOOL CHumanBaseObject::IsShowInFog() CONST
 {
-	return ReadBYTE(GetNodeBase() + ÃÔÎíÆ«ÒÆ1 + ÃÔÎíÆ«ÒÆ2 + ÃÔÎíÆ«ÒÆ3) == 1 ? FALSE : TRUE;
+	return ReadBYTE(ReadDWORD(GetNodeBase() + ÃÔÎíÆ«ÒÆ1) + ÃÔÎíÆ«ÒÆ2 + ÃÔÎíÆ«ÒÆ3) == 1 ? FALSE : TRUE;
 }
 
 BOOL CHumanBaseObject::Attack() CONST

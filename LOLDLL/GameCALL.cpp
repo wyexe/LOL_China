@@ -193,7 +193,7 @@ BOOL CGameCALL::UseSkill(_In_ CONST std::tuple<Point, Point, em_Skill_Index, DWO
 			PUSHAD;
 			MOV EAX, 人物基址;
 			MOV EAX, DWORD PTR DS : [EAX];
-			LEA ECX, DWORD PTR DS; [EAX + 技能遍历偏移1];
+			LEA ECX, DWORD PTR DS : [EAX + 技能遍历偏移1];
 			PUSH dwTarId;
 			LEA EAX, fCurrentPointArray;
 			PUSH EAX;

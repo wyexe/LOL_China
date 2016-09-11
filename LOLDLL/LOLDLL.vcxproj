@@ -126,6 +126,7 @@
     <ClCompile Include="FightServices.cpp" />
     <ClCompile Include="GameCALL.cpp" />
     <ClCompile Include="GameDlg.cpp" />
+    <ClCompile Include="GameInit.cpp" />
     <ClCompile Include="GameRes.cpp" />
     <ClCompile Include="GameVariable.cpp" />
     <ClCompile Include="Hero.cpp" />
@@ -176,6 +177,7 @@
     <ClInclude Include="FightServices.h" />
     <ClInclude Include="GameCALL.h" />
     <ClInclude Include="GameDlg.h" />
+    <ClInclude Include="GameInit.h" />
     <ClInclude Include="GameRes.h" />
     <ClInclude Include="GameStruct.h" />
     <ClInclude Include="GameVariable.h" />

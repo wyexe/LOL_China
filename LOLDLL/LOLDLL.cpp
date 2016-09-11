@@ -3,7 +3,10 @@
 
 #include "stdafx.h"
 #include "LOLDLL.h"
-
+#include <thread>
+#include "GameDlg.h"
+#include <MyTools/ToolsPublic.h>
+#include "GameVariable.h"
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -54,10 +57,51 @@ CLOLDLLApp theApp;
 
 
 // CLOLDLLApp initialization
+unsigned WINAPI _ShowThread(LPVOID lpParm)
+{
+	AFX_MANAGE_STATE(AfxGetStaticModuleState());
+	CGameDlg dlg;
+	dlg.DoModal();
+	return 0;
+}
 
 BOOL CLOLDLLApp::InitInstance()
 {
 	CWinApp::InitInstance();
-
+	static HANDLE hThread = NULL;
+	if (hThread == NULL)
+	{
+		hThread = cbBEGINTHREADEX(NULL, NULL, _ShowThread, NULL, NULL, NULL);
+	}
 	return TRUE;
+}
+__declspec(dllexport) BOOL WINAPI ReleaseDLL()
+{
+	
+	return TRUE;
+}
+
+int CLOLDLLApp::ExitInstance()
+{
+	DWORD dwTimerId = CGameVariable::GetInstance().GetVariableByID(VARIABLE_ID_TIMERID);
+	if (dwTimerId != NULL)
+	{
+		::KillTimer(CGameVariable::GetInstance().GetMemShareAccGameInfo()->hGameWnd,dwTimerId);
+	}
+	if (CGameVariable::GetInstance().GetMemShareAccGameInfo() != nullptr)
+	{
+		delete CGameVariable::GetInstance().GetMemShareAccGameInfo();
+	}
+	if (CGameVariable::GetInstance().GetMemShareInfo() != nullptr)
+	{
+		delete CGameVariable::GetInstance().GetMemShareInfo();
+	}
+	
+	CWinApp::ExitInstance();
+	return 1;
+}
+
+__declspec(dllexport) int WINAPI BBB(DWORD)
+{
+	return 0xF;
 }

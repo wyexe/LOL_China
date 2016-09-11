@@ -34,8 +34,8 @@
 #define 视角基址										0x17A7E54
 #define 视角偏移										0x20
 
-#define HP偏移										0x54
-#define MAXHP偏移									0x58
+#define HP偏移										0x2F4
+#define MAXHP偏移									0x304
 #define MP偏移										0x214
 #define MAXMP偏移									0x280
 #define 坐标偏移X									0x4C
@@ -46,7 +46,7 @@
 #define 迷雾偏移1									0x2CEC
 #define 迷雾偏移2									0x70
 #define 迷雾偏移3									0x31C
-
+#define 判断是否可见偏移							0x100
 
 // 基本固定不变的
 #define 坐标偏移Y									坐标偏移X + 0x4
@@ -154,7 +154,7 @@
 ////////Other//////////////////////////////////////////////////////////////////
 
 #define VARIABLE_ID_MAINTHREADID					0x0
-
+#define VARIABLE_ID_TIMERID							0x1
 
 
 #define MAX_TELPORT_SIZE							(34 * 512 / 4)

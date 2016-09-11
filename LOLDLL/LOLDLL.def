@@ -3,4 +3,6 @@
 LIBRARY
 
 EXPORTS
+BBB
+ReleaseDLL
     ; Explicit exports can go here

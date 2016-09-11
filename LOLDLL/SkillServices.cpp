@@ -79,7 +79,7 @@ CONST ResSkill* CSkillServices::GetCurrentHeroSkillConfig() CONST
 	return pResSkill;
 }
 
-BOOL CSkillServices::UseItemSkill(_In_ cwstring& wsItemSkillName) CONST
+BOOL CSkillServices::UseItemSkill(_In_ cwstring& wsItemSkillName, _In_ em_Skill_Type emSkillType) CONST
 {
 	vector<CSkill> vlst;
 	CObjectExtend::GetInstance().GetSkillList(vlst);
@@ -88,9 +88,7 @@ BOOL CSkillServices::UseItemSkill(_In_ cwstring& wsItemSkillName) CONST
 	if (!CObjectExtend::GetInstance().ExistSkillByName(wsItemSkillName,&Skill))
 		return FALSE;
 
-	return CGameVariable::GetInstance().PushMainThreadActionPtr([&Skill] {
-		CGameCALL::GetInstance().UsingItem(Skill.GetItemSkillParameter());
-	});
+	return Skill.UseSkill(CPerson::GetInstance(), emSkillType);
 }
 
 BOOL CSkillServices::UseBuffSkill(_In_ cwstring& wsSkillName) CONST

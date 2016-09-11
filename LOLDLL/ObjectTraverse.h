@@ -29,16 +29,17 @@ public:
 		for (UINT i = 0;i < uCount; ++i)
 		{
 			DWORD dwObj = ReadDWORD(dwArrayHead + i * 4);
-			if(ReadDWORD(dwObj + 0x110) == NULL)
+			if(ReadDWORD(dwObj + ÅÐ¶ÏÊÇ·ñ¿É¼ûÆ«ÒÆ) == 0x0)
 				continue;
 
 			T tmp(dwObj);
-			if(tmp.GetHp() == NULL || tmp.GetCurrentCamp() != emCamp || tmp.GetHumanType() != emHumanType)
+			if(emHumanType != em_Human_Type_Unknow && (tmp.GetHp() == NULL || tmp.GetCurrentCamp() != emCamp || tmp.GetHumanType() != emHumanType))
 				continue;
 
+			tmp.SetDis();
 			vlst.push_back(tmp);
 		}
-
+		sort(vlst.begin(), vlst.end());
 		return vlst.size();
 	}
 

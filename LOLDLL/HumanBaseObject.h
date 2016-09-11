@@ -30,6 +30,7 @@ public:
 	float GetDis(_In_ CONST Point& TarPoint) CONST;
 	float GetDis() CONST;
 	float SetDis(_In_ CONST Point& TarPoint);
+	void  SetDis();
 
 	// 当前的阵营
 	em_Camp GetCurrentCamp() CONST;

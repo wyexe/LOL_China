@@ -52,6 +52,9 @@
     <Filter Include="Game\Fight">
       <UniqueIdentifier>{84ceb935-aa0f-4e23-ae34-cf8ebc539584}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Init">
+      <UniqueIdentifier>{2a8d5968-ba16-4dda-a764-5634b120ed1c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -176,6 +179,9 @@
     </ClCompile>
     <ClCompile Include="FightServices.cpp">
       <Filter>Game\ObjectServices</Filter>
+    </ClCompile>
+    <ClCompile Include="GameInit.cpp">
+      <Filter>Game\Init</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -322,6 +328,9 @@
     </ClInclude>
     <ClInclude Include="FightServices.h">
       <Filter>Game\ObjectServices</Filter>
+    </ClInclude>
+    <ClInclude Include="GameInit.h">
+      <Filter>Game\Init</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

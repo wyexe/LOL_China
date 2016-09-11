@@ -28,7 +28,7 @@ public:
 	CONST ResSkill* GetCurrentHeroSkillConfig() CONST;
 
 	// 使用物品技能
-	BOOL UseItemSkill(_In_ cwstring& wsItemSkillName) CONST;
+	BOOL UseItemSkill(_In_ cwstring& wsItemSkillName, _In_ em_Skill_Type emSkillType) CONST;
 
 	// 使用BUFF技能(疾跑, 加血, 回城)
 	BOOL UseBuffSkill(_In_ cwstring& wsSkillName) CONST;
