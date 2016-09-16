@@ -19,5 +19,5 @@ UINT CEqument::GetCount() CONST throw()
 
 DWORD CEqument::GetId() CONST throw()
 {
-	return ReadDWORD(((GetNodeBase()) + 0xC) + 装备ID偏移);
+	return ReadDWORD(ReadDWORD(ReadDWORD(GetNodeBase()) + 0xC) + 装备ID偏移);
 }

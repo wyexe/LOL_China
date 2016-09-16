@@ -21,7 +21,8 @@ DWORD CHeroBuff::GetId() CONST
 
 DWORD CHeroBuff::GetCount() CONST
 {
-	return ReadDWORD(GetNodeBase() + 0x28);
+	auto dwCount = ReadDWORD(GetNodeBase() + 0x28);
+	return dwCount == 0 ? 1 : dwCount;
 }
 
 cwstring& CHeroBuff::GetName() CONST

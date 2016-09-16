@@ -34,7 +34,7 @@ CONST Point& CGameRes::GetDroganPoint() CONST throw()
 
 CONST Point& CGameRes::GetBaronPoint() CONST throw()
 {
-	CONST static Point BaronPoint(0, 0, 0);
+	CONST static Point BaronPoint(4588.0f, 9872.0f, -68.0f);
 	return BaronPoint;
 }
 
@@ -98,8 +98,8 @@ em_Path_Type CGameRes::GetDefaultPathTypeByHero(_In_ em_Hero_Pro emHeroPro) CONS
 
 CONST cwstring& CGameRes::GetBaseNameByCamp(_In_ em_Camp emCamp) CONST throw()
 {
-	static cwstring BlueCamp(L"");
-	static cwstring RedCamp(L"");
+	static cwstring BlueCamp(L"HQ_T1");
+	static cwstring RedCamp(L"HQ_T2");
 	return emCamp == em_Camp::em_Camp_Blue ? BlueCamp : RedCamp;
 }
 

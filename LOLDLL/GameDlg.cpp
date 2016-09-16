@@ -9,6 +9,8 @@
 #include "ObjectExtend.h"
 #include "GameInit.h"
 #include "Equment.h"
+#include "Skill.h"
+#include "HeroBuff.h"
 
 
 #define _SELF L"GameDlg.cpp"
@@ -49,10 +51,8 @@ BOOL CGameDlg::OnInitDialog()
 	{
 		CCB->InsertString(0, L"AllySolider");
 		CCB->InsertString(1, L"遍历背包");
-		//CCB->InsertString(2, L"遍历技能");
-		//CCB->InsertString(3, L"遍历背包");
-		//CCB->InsertString(4, L"人物BUFF");
-		//CCB->InsertString(5, L"UI遍历");
+		CCB->InsertString(2, L"遍历技能");
+		CCB->InsertString(3, L"人物BUFF");
 	}
 	
 	CGameInit::GetInstance().InitTimer();
@@ -142,9 +142,58 @@ void CGameDlg::OnBnClickedButton1()
 		{
 			int nRow = m_List->InsertItem(m_List->GetItemCount(), ConvertNumber(L"%X", itm.GetNodeBase()));
 
-			m_List->SetItemText(nRow, 1, ConvertNumber(L"%X", itm.GetNodeBase()));
+			m_List->SetItemText(nRow, 1, ConvertNumber(L"%X", itm.GetId()));
 
 			m_List->SetItemText(nRow, 2, ConvertNumber(L"%d", itm.GetCount()));
+		}
+	}
+	else if (nIndex == 2)
+	{
+		m_List->InsertColumn(0, L"Base", LVCFMT_LEFT, 80);
+		m_List->InsertColumn(1, L"Index", LVCFMT_LEFT, 50);
+		m_List->InsertColumn(2, L"Level", LVCFMT_LEFT, 50);
+		m_List->InsertColumn(3, L"Name", LVCFMT_LEFT, 100);
+		m_List->InsertColumn(4, L"ExpendMp", LVCFMT_LEFT, 80);
+		m_List->InsertColumn(5, L"CD", LVCFMT_LEFT, 50);
+		m_List->InsertColumn(6, L"IsUse", LVCFMT_LEFT, 80);
+
+		vector<CSkill> vlst;
+		CObjectExtend::GetInstance().GetSkillList(vlst);
+		for (CONST auto& itm : vlst)
+		{
+			int nRow = m_List->InsertItem(m_List->GetItemCount(), ConvertNumber(L"%X", itm.GetNodeBase()));
+
+			m_List->SetItemText(nRow, 1, ConvertNumber(L"%d", itm.GetSkillIndex()));
+
+			m_List->SetItemText(nRow, 2, ConvertNumber(L"%d", itm.GetLevel()));
+
+			m_List->SetItemText(nRow, 3, itm.GetName().c_str());
+
+			m_List->SetItemText(nRow, 4, ConvertNumber(L"%d", itm.GetExpendMp()));
+
+			m_List->SetItemText(nRow, 5, itm.IsCooldown() ? L"Yes" : L"No");
+
+			m_List->SetItemText(nRow, 6, itm.IsCooldown() ? L"Yes" : L"No");
+		}
+	}
+	else if (nIndex == 3)
+	{
+		m_List->InsertColumn(0, L"Base", LVCFMT_LEFT, 80);
+		m_List->InsertColumn(1, L"ID", LVCFMT_LEFT, 50);
+		m_List->InsertColumn(2, L"Count", LVCFMT_LEFT, 50);
+		m_List->InsertColumn(3, L"Name", LVCFMT_LEFT, 100);
+
+		vector<CHeroBuff> vlst;
+		CObjectExtend::GetInstance().GetCurrentHeroBuffList(vlst);
+		for (CONST auto& itm : vlst)
+		{
+			int nRow = m_List->InsertItem(m_List->GetItemCount(), ConvertNumber(L"%X", itm.GetNodeBase()));
+
+			m_List->SetItemText(nRow, 1, ConvertNumber(L"%X", itm.GetId()));
+
+			m_List->SetItemText(nRow, 2, ConvertNumber(L"%d", itm.GetCount()));
+
+			m_List->SetItemText(nRow, 3, itm.GetName().c_str());
 		}
 	}
 }

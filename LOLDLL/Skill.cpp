@@ -35,7 +35,7 @@ cwstring& CSkill::GetName() CONST
 
 DWORD CSkill::GetExpendMp() CONST
 {
-	return static_cast<DWORD>(ReadFloat(ReadDWORD((GetNodeBase() + 技能OBJ偏移) + 技能耗蓝偏移1) + GetLevel() * 4 + 技能耗蓝偏移2));
+	return static_cast<DWORD>(ReadFloat(ReadDWORD(ReadDWORD(GetNodeBase() + 技能OBJ偏移) + 技能耗蓝偏移1) + GetLevel() * 4 + 技能耗蓝偏移2));
 }
 
 BOOL CSkill::IsCooldown() CONST
