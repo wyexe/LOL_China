@@ -48,18 +48,11 @@ BOOL CEqumentServices::BuyEqument()
 BOOL CEqumentServices::BuyMedicine() CONST
 {
 	DWORD dwMoney = CPerson::GetInstance().GetMoney();
-	auto pResEuqment = CGameRes::GetInstance().GetEqumentPriceById(EQUMENT_ID_∫Ï“©);
-	if (pResEuqment == nullptr)
-	{
-		LogMsgBox(LOG_LEVEL_EXCEPTION, L"“©µƒID≤ª¥Ê‘⁄!");
-		return FALSE;
-	}
-
-	DWORD dwCount = dwMoney / pResEuqment->dwPrice;
+	DWORD dwCount = dwMoney / EQUMENT_PRICE_∫Ï“©;
 	for (DWORD i = 0;i < dwCount; ++i)
 	{
-		CGameVariable::GetInstance().PushMainThreadActionPtr([&pResEuqment] {
-			CGameCALL::GetInstance().PurchaseItemByShore(pResEuqment->dwEqumentId);
+		CGameVariable::GetInstance().PushMainThreadActionPtr([] {
+			CGameCALL::GetInstance().PurchaseItemByShore(EQUMENT_ID_∫Ï“©);
 		});
 	}
 	return TRUE;

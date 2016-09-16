@@ -55,6 +55,9 @@
     <Filter Include="Game\Init">
       <UniqueIdentifier>{2a8d5968-ba16-4dda-a764-5634b120ed1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\ScanBase">
+      <UniqueIdentifier>{64ecaa33-4f92-49cb-a490-c401ebb00cae}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -182,6 +185,9 @@
     </ClCompile>
     <ClCompile Include="GameInit.cpp">
       <Filter>Game\Init</Filter>
+    </ClCompile>
+    <ClCompile Include="ScanBase.cpp">
+      <Filter>Game\ScanBase</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -331,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="GameInit.h">
       <Filter>Game\Init</Filter>
+    </ClInclude>
+    <ClInclude Include="ScanBase.h">
+      <Filter>Game\ScanBase</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
