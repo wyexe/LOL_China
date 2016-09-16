@@ -137,6 +137,7 @@
     <ClCompile Include="ObjectExtend.cpp" />
     <ClCompile Include="ObjectTraverse.cpp" />
     <ClCompile Include="Person.cpp" />
+    <ClCompile Include="ScanBase.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="SkillServices.cpp" />
     <ClCompile Include="Solider.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="ObjectTraverse.h" />
     <ClInclude Include="Person.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ScanBase.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="SkillServices.h" />
     <ClInclude Include="Solider.h" />

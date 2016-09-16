@@ -222,39 +222,115 @@ CONST vector<Point>& CGameRes::GetPathPointVecByCampAndPathType(_In_ em_Camp emC
 	return TopBlueCamp;
 }
 
-auto CGameRes::GetResEuqmentVecByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() -> CONST vector<DWORD>*
+auto CGameRes::GetResEuqmentVecByType(_In_ em_ResEqument_Type emResEqumentType) CONST throw() -> CONST vector<ResEqument>*
 {
 	static CONST vector<HeroResEqument> HeroResEqumentVec = {
-		{ em_Hero_Pro_Ryze,{ EQUMENT_ID_蓝水晶,EQUMENT_ID_女神之泪 } },
+			//
+		HeroResEqument{ em_ResEqument_Type_Master_Defence, {
+				ResEqument{ EQUMENT_ID_蓝水晶,350 }, ResEqument{ EQUMENT_ID_速度之靴,300},
+				ResEqument{ EQUMENT_ID_女神之泪,400 },ResEqument{ EQUMENT_ID_轻灵之靴,600 },
+				ResEqument{ EQUMENT_ID_万世催化石, 1100 },ResEqument{ EQUMENT_ID_爆裂魔杖 , 850 },
+				ResEqument{ EQUMENT_ID_时光之杖, 750 },ResEqument{ EQUMENT_ID_猛禽斗篷 , 1200 },
+				ResEqument{ EQUMENT_ID_负极斗篷, 720 },ResEqument{ EQUMENT_ID_传送门 , 780 },
+				ResEqument{ EQUMENT_ID_巨人腰带, 1000 },ResEqument{ EQUMENT_ID_无用大棒 , 1250 },
+				ResEqument{ EQUMENT_ID_瑞莱的冰晶节杖, 1000 },ResEqument{ EQUMENT_ID_无用大棒, 1250 },
+				ResEqument{ EQUMENT_ID_大天使之杖, 1100 },ResEqument{ EQUMENT_ID_爆裂魔杖, 850 },
+				ResEqument{ EQUMENT_ID_虚空之杖, 2650 }}},
+			//
+			HeroResEqument{ em_ResEqument_Type_Master_Attack ,{
+				ResEqument{ EQUMENT_ID_蓝水晶,350 }, ResEqument{ EQUMENT_ID_速度之靴,300 },
+				ResEqument{ EQUMENT_ID_遗失的章节 ,550 }, ResEqument{ EQUMENT_ID_法师之靴 ,800 },
+				ResEqument{ EQUMENT_ID_恶魔法典,900 }, ResEqument{ EQUMENT_ID_莫雷洛秘典 ,1100 },
+				ResEqument{ EQUMENT_ID_猛禽斗篷 , 1200 }, ResEqument{ EQUMENT_ID_负极斗篷, 720 },
+				ResEqument{ EQUMENT_ID_传送门 , 780 },ResEqument{ EQUMENT_ID_巨人腰带, 1000 },
+				ResEqument{ EQUMENT_ID_无用大棒 , 1250 }, ResEqument{ EQUMENT_ID_瑞莱的冰晶节杖, 1000 },
+				ResEqument{ EQUMENT_ID_幽魂面具,1600 }, ResEqument{ EQUMENT_ID_爆裂魔杖 ,850 },
+				ResEqument{ EQUMENT_ID_兰德里的折磨, 750 }, ResEqument{ EQUMENT_ID_爆裂魔杖, 850 },
+				ResEqument{ EQUMENT_ID_虚空之杖, 2650 } 
+				}},
+
+
+			// 攻速型ADC
+		HeroResEqument{ em_ResEqument_Type_ADC_AttackSpeed ,{
+					ResEqument{ EQUMENT_ID_速度之靴, 300 }, ResEqument{ EQUMENT_ID_狂战士胫甲 ,800 },
+					ResEqument{ EQUMENT_ID_吸血鬼节杖, 900 }, ResEqument{ EQUMENT_ID_比尔吉沃特弯刀 ,600 },
+					ResEqument{ EQUMENT_ID_反曲之弓, 1000 }, ResEqument{ EQUMENT_ID_破败王者之刃,900 },
+					ResEqument{ EQUMENT_ID_猛禽斗篷 , 1200 }, ResEqument{ EQUMENT_ID_负极斗篷, 720 },
+					ResEqument{ EQUMENT_ID_传送门 , 780 },ResEqument{ EQUMENT_ID_最后的轻语 ,1300 },
+					ResEqument{ EQUMENT_ID_巨人的杀手,1000 }, ResEqument{ EQUMENT_ID_多米尼克领主的致意 ,400 },
+					ResEqument{ EQUMENT_ID_紫雨林之拳,1200 }, ResEqument{ EQUMENT_ID_十字犒,875 },
+					ResEqument{ EQUMENT_ID_冰霜之锤,1025 }, ResEqument{ EQUMENT_ID_暴风之剑 ,1300 },
+					ResEqument{ EQUMENT_ID_十字犒,875 }, ResEqument{ EQUMENT_ID_灵巧披风 ,800 },
+					ResEqument{ EQUMENT_ID_无尽之刃,625 }
+				}},
+			 
+
+			// 飓风型ADC
+		HeroResEqument{ em_ResEqument_Type_ADC_AttackDis ,{
+					ResEqument{ EQUMENT_ID_速度之靴, 300 }, ResEqument{ EQUMENT_ID_狂战士胫甲 ,800 },
+					ResEqument{ EQUMENT_ID_反曲之弓,1000 }, ResEqument{ EQUMENT_ID_狂热 ,1300 },
+					ResEqument{ EQUMENT_ID_卢安娜的飓风,300 }, ResEqument{ EQUMENT_ID_猛禽斗篷 , 1200 },
+					ResEqument{ EQUMENT_ID_负极斗篷, 720 },ResEqument{ EQUMENT_ID_传送门 , 780 },
+					ResEqument{ EQUMENT_ID_暴风之剑 ,1300 }, ResEqument{ EQUMENT_ID_十字犒,875 },
+					ResEqument{ EQUMENT_ID_灵巧披风 ,800 },ResEqument{ EQUMENT_ID_无尽之刃,625 },
+					ResEqument{ EQUMENT_ID_最后的轻语 ,1300 },ResEqument{ EQUMENT_ID_巨人的杀手,1000 },
+					ResEqument{ EQUMENT_ID_多米尼克领主的致意 ,400 },ResEqument{ EQUMENT_ID_紫雨林之拳,1200 },
+					ResEqument{ EQUMENT_ID_十字犒,875 },ResEqument{ EQUMENT_ID_冰霜之锤,1025 }
+				}},
+			
+			// 攻击力型ADC
+		HeroResEqument{ em_ResEqument_Type_ADC_AttackPower ,{
+					ResEqument{ EQUMENT_ID_速度之靴, 300 }, ResEqument{ EQUMENT_ID_狂战士胫甲 ,800 },
+					ResEqument{ EQUMENT_ID_暴风之剑,1300 }, ResEqument{ EQUMENT_ID_考尔菲德的战锤,1100 },
+					ResEqument{ EQUMENT_ID_灵巧披风,800 }, ResEqument{ EQUMENT_ID_夺萃之镰 ,400 },
+					ResEqument{ EQUMENT_ID_猛禽斗篷 , 1200 }, ResEqument{ EQUMENT_ID_负极斗篷, 720 },
+					ResEqument{ EQUMENT_ID_传送门 , 780 },  ResEqument{ EQUMENT_ID_狂热 ,1300 },
+					ResEqument{ EQUMENT_ID_幻影之舞,1250 }, ResEqument{ EQUMENT_ID_最后的轻语 ,1300 },
+					ResEqument{ EQUMENT_ID_巨人的杀手,1000 },ResEqument{ EQUMENT_ID_多米尼克领主的致意 ,400 },
+					ResEqument{ EQUMENT_ID_吸血鬼节杖 ,900 }, ResEqument{ EQUMENT_ID_暴风之剑,1300 },
+					ResEqument{ EQUMENT_ID_饮血剑, 1500 },
+				}},
+			
+			
+				HeroResEqument{ em_ResEqument_Type_Defence_Attack ,{
+					// 半肉
+					ResEqument{ EQUMENT_ID_速度之靴,300 }, ResEqument{ EQUMENT_ID_水银之靴,800 },
+					ResEqument{ EQUMENT_ID_净蚀,1250 }, ResEqument{ EQUMENT_ID_考尔菲德的战锤 ,1100 },
+					ResEqument{ EQUMENT_ID_黑色切割者,750 },ResEqument{ EQUMENT_ID_猛禽斗篷 , 1200 },
+					ResEqument{ EQUMENT_ID_负极斗篷, 720 },ResEqument{ EQUMENT_ID_传送门 , 780 },
+					ResEqument{ EQUMENT_ID_红水晶,400 }, ResEqument{ EQUMENT_ID_斑比的熔渣 , 700 },
+					ResEqument{ EQUMENT_ID_锁子甲,800 }, ResEqument{ EQUMENT_ID_日炎斗篷 ,1000 },
+					ResEqument{ EQUMENT_ID_红水晶,400 }, ResEqument{ EQUMENT_ID_幽魂斗篷,800 },
+					ResEqument{ EQUMENT_ID_振奋铠甲,1600 }, ResEqument{ EQUMENT_ID_巨人腰带,1000 },
+					ResEqument{ EQUMENT_ID_狂徒铠甲,1850 },
+				}},
+			
+				HeroResEqument{ em_ResEqument_Type_Defence_Defence ,{
+					// 纯肉
+					ResEqument{ EQUMENT_ID_速度之靴,300 }, ResEqument{ EQUMENT_ID_水银之靴,800 },
+					ResEqument{ EQUMENT_ID_蓝水晶, 350 }, ResEqument{ EQUMENT_ID_冰川护甲, 650 },
+					ResEqument{ EQUMENT_ID_耀光,1050 }, ResEqument{ EQUMENT_ID_冰脉护手,650 },
+					ResEqument{ EQUMENT_ID_猛禽斗篷 , 1200 },
+					ResEqument{ EQUMENT_ID_负极斗篷, 720 },ResEqument{ EQUMENT_ID_传送门 , 780 },
+					ResEqument{ EQUMENT_ID_红水晶,400 }, ResEqument{ EQUMENT_ID_斑比的熔渣 , 700 },
+					ResEqument{ EQUMENT_ID_锁子甲,800 }, ResEqument{ EQUMENT_ID_日炎斗篷 ,1000 },
+					ResEqument{ EQUMENT_ID_红水晶,400 }, ResEqument{ EQUMENT_ID_幽魂斗篷,800 },
+					ResEqument{ EQUMENT_ID_振奋铠甲,1600 }, ResEqument{ EQUMENT_ID_巨人腰带,1000 },
+					ResEqument{ EQUMENT_ID_狂徒铠甲,1850 },
+				}}
 	};
 
-	auto pHeroResEqument = CLPublic::Vec_find_if(HeroResEqumentVec, [&emHeroPro](CONST HeroResEqument& itm) {
-		return itm.emHeroPro == emHeroPro;
+	auto pHeroResEqument = CLPublic::Vec_find_if(HeroResEqumentVec, [&emResEqumentType](CONST HeroResEqument& itm) {
+		return itm.emResEqumentType == emResEqumentType;
 	});
-	return pHeroResEqument != nullptr ? &pHeroResEqument->EqumentIdVec : nullptr;
-}
-
-auto CGameRes::GetEqumentPriceById(_In_ DWORD dwEqumentId) CONST throw()  -> CONST ResEqument*
-{
-	static CONST vector<ResEqument> ResEqumentVec = {
-		{ EQUMENT_ID_蓝水晶, 350 },
-		{ EQUMENT_ID_女神之泪, 400 },
-		{ EQUMENT_ID_速度之靴, 300 },
-		{ EQUMENT_ID_催化神石, 1200 },
-		{ EQUMENT_ID_水银之靴, 800 },
-		{ EQUMENT_ID_时光之杖, 1800 },
-		{ EQUMENT_ID_猛禽斗篷, 1200 },
-		{ EQUMENT_ID_传送门, 1500 },
-		{ EQUMENT_ID_巨人腰带, 1000 },
-	};
-
-	return CLPublic::Vec_find_if(ResEqumentVec, [&dwEqumentId](CONST auto& itm) { return itm.dwEqumentId == dwEqumentId; });
+	return pHeroResEqument != nullptr ? &pHeroResEqument->EqumentVec : nullptr;
 }
 
 auto CGameRes::GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqumentId) CONST throw()  -> CONST ResEqument*
 {
 	// Get EqumentId list by Hero
-	auto pVec = GetResEuqmentVecByHero(emHeroPro);
+	auto emResEqumentType = GetResEqumentTypeByHero(emHeroPro);
+	auto pVec = GetResEuqmentVecByType(emResEqumentType);
 	if (pVec == nullptr)
 	{
 		LogMsgBox(LOG_LEVEL_EXCEPTION, L"UnExist Hero Equment:%X", emHeroPro);
@@ -263,9 +339,9 @@ auto CGameRes::GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqu
 
 	// find current equment id in pVec
 	auto& ResEqumentItr = std::find_if(pVec->begin(), pVec->end(), [&dwLastEqumentId](CONST auto& itm) {
-		return itm == dwLastEqumentId;
+		return itm.dwEqumentId == dwLastEqumentId;
 	});
-	if (ResEqumentItr == pVec->begin())
+	if (ResEqumentItr == pVec->end())
 	{
 		LogMsgBox(LOG_LEVEL_EXCEPTION, L"UnExist Hero Equment:%X", emHeroPro);
 		return nullptr;
@@ -278,7 +354,7 @@ auto CGameRes::GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqu
 	}
 
 	// Get Next Equment
-	return GetEqumentPriceById(*(ResEqumentItr + 1));
+	return &*(ResEqumentItr + 1);
 }
 
 auto CGameRes::GetResSkillByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() -> CONST ResSkill*
@@ -324,5 +400,21 @@ CONST vector<ResSkill>& CGameRes::GetResSkillList() CONST  throw()
 	};
 
 	return vlst;
+}
+
+auto CGameRes::GetResEqumentTypeByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() ->em_ResEqument_Type
+{
+	switch (emHeroPro)
+	{
+	case em_Hero_Pro::em_Hero_Pro_Ryze:
+		return em_ResEqument_Type_Master_Defence;
+	case em_Hero_Pro::em_Hero_Pro_Ashe:
+		return em_ResEqument_Type_ADC_AttackDis;
+	case em_Hero_Pro::em_Hero_Pro_Garen:
+		return em_ResEqument_Type_Defence_Attack;
+	default:
+		break;
+	}
+	return em_ResEqument_Type_Defence_Defence;
 }
 

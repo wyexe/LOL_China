@@ -16,10 +16,21 @@ private:
 		DWORD dwEqumentId;
 		DWORD dwPrice;
 	};
+
+	enum em_ResEqument_Type
+	{
+		em_ResEqument_Type_Master_Defence,
+		em_ResEqument_Type_Master_Attack,
+		em_ResEqument_Type_ADC_AttackSpeed,
+		em_ResEqument_Type_ADC_AttackDis,
+		em_ResEqument_Type_ADC_AttackPower,
+		em_ResEqument_Type_Defence_Attack,
+		em_ResEqument_Type_Defence_Defence
+	};
 	struct HeroResEqument
 	{
-		em_Hero_Pro emHeroPro;
-		vector<DWORD> EqumentIdVec;
+		em_ResEqument_Type emResEqumentType;
+		vector<ResEqument> EqumentVec;
 	};
 	
 	struct tagHeroSp
@@ -27,6 +38,9 @@ private:
 		em_Hero_Pro		emHeroPro;
 		vector<em_Skill_Index> SkillSpVec;
 	};
+
+	
+
 public:
 	// MonsterBuff
 	// 蓝BUFF
@@ -54,9 +68,6 @@ public:
 	// Equment
 	auto GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqumentId) CONST throw() -> CONST ResEqument*;
 
-	// 获取装备列表
-	auto GetEqumentPriceById(_In_ DWORD dwEqumentId) CONST throw()->CONST ResEqument*;
-
 	// Skill
 	// 获取英雄的技能用法介绍
 	auto GetResSkillByHero(_In_ em_Hero_Pro emHeroPro)  CONST throw() -> CONST ResSkill*;
@@ -79,13 +90,16 @@ private:
 	CONST vector<Point>& GetPathPointVecByCampAndPathType(_In_ em_Camp emCamp, _In_ em_Path_Type emPathType) CONST throw();
 
 	// 获取英雄的所有装备列表
-	auto GetResEuqmentVecByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() ->CONST vector<DWORD>*;
+	auto GetResEuqmentVecByType(_In_ em_ResEqument_Type emResEqumentType) CONST throw() ->CONST vector<ResEqument>*;
 
 	// 获取所有英雄的技能加点大全
 	auto GetHeroSpVec() CONST throw() ->CONST vector<tagHeroSp>&;
 
 	// 获取英雄技能用法介绍List
 	CONST vector<ResSkill>& GetResSkillList() CONST throw();
+
+	// 获取英雄的装备分类
+	auto GetResEqumentTypeByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() ->em_ResEqument_Type;
 private:
 	DSIABLE_COPY_AND_ASSIGN(CGameRes);
 };
