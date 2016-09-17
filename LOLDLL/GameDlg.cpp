@@ -11,6 +11,7 @@
 #include "Equment.h"
 #include "Skill.h"
 #include "HeroBuff.h"
+#include "ScanBase.h"
 
 
 #define _SELF L"GameDlg.cpp"
@@ -53,6 +54,7 @@ BOOL CGameDlg::OnInitDialog()
 		CCB->InsertString(1, L"遍历背包");
 		CCB->InsertString(2, L"遍历技能");
 		CCB->InsertString(3, L"人物BUFF");
+		CCB->InsertString(4, L"ScanBase");
 	}
 	
 	CGameInit::GetInstance().InitTimer();
@@ -195,6 +197,10 @@ void CGameDlg::OnBnClickedButton1()
 
 			m_List->SetItemText(nRow, 3, itm.GetName().c_str());
 		}
+	}
+	else if (nIndex == 4)
+	{
+		CScanBase::GetInstance().Begin();
 	}
 }
 

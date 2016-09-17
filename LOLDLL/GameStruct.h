@@ -19,13 +19,9 @@
 #define 技能遍历偏移1									0x2588
 #define 技能遍历偏移2									0x518
 #define 技能OBJ偏移										0xEC
-#define 技能耗蓝偏移1									0x34
-#define 技能耗蓝偏移2									0x56C
 #define 游戏开场时间基址								0x343942C
 #define 人物死亡偏移									0x210
 #define 装备遍历偏移1									0x1318
-#define 装备遍历偏移2									0x198
-#define 装备ID偏移										0x70
 #define 购买物品CALL									0x00C0BA10
 #define 走路CALL										0x037190C7
 #define 使用技能CALL									0x00CE71A0
@@ -35,9 +31,7 @@
 #define 视角偏移										0x20
 
 #define HP偏移										0x2F4
-#define MAXHP偏移									0x304
 #define MP偏移										0x214
-#define MAXMP偏移									0x280
 #define 坐标偏移X									0x4C
 #define 英雄等级虚函数偏移							0x334
 #define 人物技能点虚函数偏移						0xBC
@@ -46,12 +40,18 @@
 #define 迷雾偏移1									0x2CEC
 #define 迷雾偏移2									0x70
 #define 迷雾偏移3									0x31C
-#define 判断是否可见偏移							0x100
 
 // 基本固定不变的
 #define 坐标偏移Y									坐标偏移X + 0x4
 #define 坐标偏移Z									坐标偏移Y + 0x4
+#define MAXHP偏移									HP偏移 + 0x10
+#define MAXMP偏移									MP偏移 + 0x10
 #define 英雄名称偏移									0x9A0
+#define 技能耗蓝偏移1									0x34
+#define 技能耗蓝偏移2									0x56C
+#define 装备遍历偏移2									0x198
+#define 装备ID偏移										0x70
+#define 判断是否可见偏移								0x100
 /************************************************************************/
 /* GameMacro                                                            */
 /************************************************************************/
