@@ -28,7 +28,7 @@ BOOL CScanBase::Begin() CONST
 	dwBase = CLSearchBase::FindBase("0F84????????807F14000F84", 0x0076FAF0 - 0x0076FB39, 1, 0, LOL_CHINA_CLIENT);
 	CLLog::Print(__FUNCTIONW__, _SELF, 0, LOG_LEVEL_NORMAL, L"#define	人物基址	0x%X", dwBase);
 	// 环境基址
-	dwBase = CLSearchBase::FindBase("A1????????2B05????????C1F802D1E8 ", 0x009D0436 - 0x009D0436, 1, 0, LOL_CHINA_CLIENT);
+	dwBase = CLSearchBase::FindBase("A1????????2B05????????C1F802D1E8", 0x009D0436 - 0x009D043B, 2, 0, LOL_CHINA_CLIENT);
 	CLLog::Print(__FUNCTIONW__, _SELF, 0, LOG_LEVEL_NORMAL, L"#define	环境基址	0x%X", dwBase);
 	// BUFF基址
 	dwBase = CLSearchBase::FindBase("6A00E8????????8B0D????????85??7405", 0x009B2AD4 - 0x009B2ADB, 2, 0, LOL_CHINA_CLIENT);
@@ -82,7 +82,7 @@ BOOL CScanBase::Begin() CONST
 	dwBase = CLSearchBase::FindBase("A80175??8B0D", 0x00B7D838 - 0x00B7D7D8, 2, 0, LOL_CHINA_CLIENT);
 	CLLog::Print(__FUNCTIONW__, _SELF, 0, LOG_LEVEL_NORMAL, L"#define	迷雾偏移1	0x%X", dwBase);
 	// 迷雾偏移2
-	dwBase = CLSearchBase::FindBase("A80175??8B0D", 0x00B7D838 - 0x00B7D7DF, 1, 0, LOL_CHINA_CLIENT);
+	dwBase = CLSearchBase::FindBase("A80175??8B0D", 0x00B7D838 - 0x00B7D7DF, 2, 0, LOL_CHINA_CLIENT, 0xFF);
 	CLLog::Print(__FUNCTIONW__, _SELF, 0, LOG_LEVEL_NORMAL, L"#define	迷雾偏移2	0x%X", dwBase);
 	// 迷雾偏移3
 	dwBase = CLSearchBase::FindBase("A80175??8B0D", 0x00B7D838 - 0x00B7D877, 2, 0, LOL_CHINA_CLIENT);
@@ -100,12 +100,6 @@ BOOL CScanBase::Begin() CONST
 	// 学习技能CALL
 	dwCALL = CLSearchBase::FindCALL("83??3F77??8B??E8????????EB", 0x006E9FA9 - 0x006E9FBB, dwClient, 1, 0, LOL_CHINA_CLIENT);
 	CLLog::Print(__FUNCTIONW__, _SELF, 0, LOG_LEVEL_NORMAL, L"#define	学习技能CALL	0x%X", dwCALL);
-	// 购买物品CALL
-	dwCALL = CLSearchBase::FindCALL("0F84????????807F14000F84", 0x0FC - 0x162, dwClient, 1, 0, LOL_CHINA_CLIENT);
-	CLLog::Print(__FUNCTIONW__, _SELF, 0, LOG_LEVEL_NORMAL, L"#define	邮寄CALL	0x%X", dwCALL);
-	// 购买物品CALL
-	dwCALL = CLSearchBase::FindCALL("0F84????????807F14000F84", 0x0FC - 0x162, dwClient, 1, 0, LOL_CHINA_CLIENT);
-	CLLog::Print(__FUNCTIONW__, _SELF, 0, LOG_LEVEL_NORMAL, L"#define	邮寄CALL	0x%X", dwCALL);
 	// 使用技能CALL
 	dwAddr = CLSearchBase::FindAddr("8B450883B8????0000000F84????????8B", 0x00CE71D2 - 0x00CE71A0, 0, LOL_CHINA_CLIENT);
 	CLLog::Print(__FUNCTIONW__, _SELF, 0, LOG_LEVEL_NORMAL, L"#define	使用技能CALL	0x%X", dwAddr);

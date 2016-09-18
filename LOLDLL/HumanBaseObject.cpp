@@ -139,7 +139,7 @@ DWORD CHumanBaseObject::GetSkillParameter() CONST
 
 DWORD CHumanBaseObject::GetTargetId() CONST
 {
-	return 0;
+	return ReadDWORD(ReadDWORD(ReadDWORD(GetNodeBase() + TargetÆ«ÒÆ1) + TargetÆ«ÒÆ2) + TargetÆ«ÒÆ3);
 }
 
 bool CHumanBaseObject::operator<(CONST CHumanBaseObject& itm) CONST

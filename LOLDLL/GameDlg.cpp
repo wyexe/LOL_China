@@ -100,13 +100,14 @@ void CGameDlg::OnBnClickedButton1()
 	if (nIndex == 0)
 	{
 		m_List->InsertColumn(0, L"Base", LVCFMT_LEFT, 80);
-		m_List->InsertColumn(1, L"ID", LVCFMT_LEFT, 50);
-		m_List->InsertColumn(2, L"Name", LVCFMT_LEFT, 100);
-		m_List->InsertColumn(3, L"IsShow", LVCFMT_LEFT, 100);
-		m_List->InsertColumn(4, L"TarId", LVCFMT_LEFT, 100);
-		m_List->InsertColumn(5, L"Point", LVCFMT_LEFT, 150);
-		m_List->InsertColumn(6, L"HP/MAXHP", LVCFMT_LEFT, 100);
-		m_List->InsertColumn(7, L"Dis", LVCFMT_LEFT, 50);
+		m_List->InsertColumn(1, L"ID", LVCFMT_LEFT, 80);
+		m_List->InsertColumn(2, L"ID2", LVCFMT_LEFT, 80);
+		m_List->InsertColumn(3, L"Name", LVCFMT_LEFT, 100);
+		m_List->InsertColumn(4, L"IsShow", LVCFMT_LEFT, 100);
+		m_List->InsertColumn(5, L"TarId", LVCFMT_LEFT, 100);
+		m_List->InsertColumn(6, L"Point", LVCFMT_LEFT, 150);
+		m_List->InsertColumn(7, L"HP/MAXHP", LVCFMT_LEFT, 100);
+		m_List->InsertColumn(8, L"Dis", LVCFMT_LEFT, 50);
 
 		vector<CSolider> vlst;
 		CObjectExtend::GetInstance().GetHumanTypeListByType<CSolider>(em_Human_Type::em_Human_Type_Unknow, em_Camp::em_Camp_Blue, vlst);
@@ -117,18 +118,20 @@ void CGameDlg::OnBnClickedButton1()
 
 			m_List->SetItemText(nRow, 1, ConvertNumber(L"%X", itm.GetId()));
 
-			m_List->SetItemText(nRow, 2, itm.GetName().c_str());
+			m_List->SetItemText(nRow, 2, ConvertNumber(L"%X", itm.GetSkillParameter()));
 
-			m_List->SetItemText(nRow, 3, itm.IsShowInFog() ? L"YES" : L"NO");
+			m_List->SetItemText(nRow, 3, itm.GetName().c_str());
 
-			m_List->SetItemText(nRow, 4, ConvertNumber(L"%X", itm.GetTargetId()));
+			m_List->SetItemText(nRow, 4, itm.IsShowInFog() ? L"YES" : L"NO");
+
+			m_List->SetItemText(nRow, 5, ConvertNumber(L"%X", itm.GetTargetId()));
 
 			Point Pt = itm.GetPoint();
-			m_List->SetItemText(nRow, 5, ConvertNumber(L"%d,%d,%d", Pt.GetX(), Pt.GetY(), Pt.GetZ()));
+			m_List->SetItemText(nRow, 6, ConvertNumber(L"%d,%d,%d", Pt.GetX(), Pt.GetY(), Pt.GetZ()));
 
-			m_List->SetItemText(nRow, 6, ConvertNumber(L"%d-%d",itm.GetHp(), itm.GetMaxHp()));
+			m_List->SetItemText(nRow, 7, ConvertNumber(L"%d-%d",itm.GetHp(), itm.GetMaxHp()));
 
-			m_List->SetItemText(nRow, 7, ConvertNumber(L"%.2f", itm.GetDis()));
+			m_List->SetItemText(nRow, 8, ConvertNumber(L"%.2f", itm.GetDis()));
 		}
 
 	}

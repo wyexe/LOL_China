@@ -13,33 +13,36 @@
 /* GameBase                                                             */
 /************************************************************************/
 
-#define 人物基址										0x17A7C30
-#define 环境基址										0x27CBA5C
-#define BUFF基址										0x17A6B00
-#define 技能遍历偏移1									0x2588
-#define 技能遍历偏移2									0x518
-#define 技能OBJ偏移										0xEC
-#define 游戏开场时间基址								0x343942C
-#define 人物死亡偏移									0x210
-#define 装备遍历偏移1									0x1318
-#define 购买物品CALL									0x00C0BA10
-#define 走路CALL										0x037190C7
-#define 使用技能CALL									0x00CE71A0
-#define 普通攻击CALL									0x037190C7
-#define 学习技能CALL									0x858F50
-#define 视角基址										0x17A7E54
-#define 视角偏移										0x20
-
-#define HP偏移										0x2F4
-#define MP偏移										0x214
-#define 坐标偏移X									0x4C
-#define 英雄等级虚函数偏移							0x334
-#define 人物技能点虚函数偏移						0xBC
-#define 人物技能点偏移								0x40
-#define 金钱偏移									0x12E4
-#define 迷雾偏移1									0x2CEC
-#define 迷雾偏移2									0x70
-#define 迷雾偏移3									0x31C
+#define 人物基址 0x17A8B88
+#define 环境基址 0x27D0B14
+#define BUFF基址 0x17A847C
+#define 技能遍历偏移1 0x2548
+#define 技能遍历偏移2 0x518
+#define 技能OBJ偏移 0xEC
+#define 游戏开场时间基址 0x343E86C
+#define 人物死亡偏移 0x1D0
+#define 装备遍历偏移1 0x12D8
+#define 视角基址 0x17A62F0
+#define 视角偏移 0x20
+#define HP偏移 0x2B4
+#define MP偏移 0x1D4
+#define 坐标偏移X 0x4C
+#define 英雄等级虚函数偏移 0x33C
+#define 人物技能点虚函数偏移 0xBC
+#define 人物技能点偏移 0x40
+#define 金钱偏移 0x12A4
+#define 迷雾偏移1 0x2CAC
+#define 迷雾偏移2 0x70
+#define 迷雾偏移3 0x31C
+#define 购买物品CALL 0xD5E2D0
+#define 走路CALL 0x36E940B
+#define 普通攻击CALL 0x36E940B
+#define 学习技能CALL 0xAB2A30
+#define 邮寄CALL 0x875520
+#define 邮寄CALL 0x875520
+#define 使用技能CALL 0x5F3FD0
+#define Target偏移1 0x2A18
+#define Target偏移3	0x5C
 
 // 基本固定不变的
 #define 坐标偏移Y									坐标偏移X + 0x4
@@ -52,6 +55,7 @@
 #define 装备遍历偏移2									0x198
 #define 装备ID偏移										0x70
 #define 判断是否可见偏移								0x100
+#define Target偏移2										0x20
 /************************************************************************/
 /* GameMacro                                                            */
 /************************************************************************/
