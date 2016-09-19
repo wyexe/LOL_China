@@ -2,6 +2,7 @@
 #include "HumanBaseObject.h"
 #include <MyTools/CLPublic.h>
 #include "Person.h"
+#include "GameCALL.h"
 
 CHumanBaseObject::CHumanBaseObject() : CBaseObject(NULL), fDis(0)
 {
@@ -119,12 +120,17 @@ em_Human_Type CHumanBaseObject::GetHumanType() CONST
 
 BOOL CHumanBaseObject::IsShowInFog() CONST
 {
+	if (GetHumanType() != em_Human_Type::em_Human_Type_Hero)
+		return TRUE;
+
 	return ReadBYTE(ReadDWORD(GetNodeBase() + √‘ŒÌ∆´“∆1) + √‘ŒÌ∆´“∆2 + √‘ŒÌ∆´“∆3) == 1 ? FALSE : TRUE;
 }
 
 BOOL CHumanBaseObject::Attack() CONST
 {
-	return TRUE;
+	return CGameVariable::GetInstance().PushMainThreadActionPtr([this] {
+		CGameCALL::GetInstance().HeroAttack(GetNodeBase(), GetPoint());
+	});
 }
 
 BOOL CHumanBaseObject::IsDead() CONST

@@ -38,8 +38,6 @@
 #define 走路CALL 0x36E940B
 #define 普通攻击CALL 0x36E940B
 #define 学习技能CALL 0xAB2A30
-#define 邮寄CALL 0x875520
-#define 邮寄CALL 0x875520
 #define 使用技能CALL 0x5F3FD0
 #define Target偏移1 0x2A18
 #define Target偏移3	0x5C
@@ -49,7 +47,7 @@
 #define 坐标偏移Z									坐标偏移Y + 0x4
 #define MAXHP偏移									HP偏移 + 0x10
 #define MAXMP偏移									MP偏移 + 0x10
-#define 英雄名称偏移									0x9A0
+#define 英雄名称偏移									0x960
 #define 技能耗蓝偏移1									0x34
 #define 技能耗蓝偏移2									0x56C
 #define 装备遍历偏移2									0x198
@@ -69,6 +67,8 @@
 
 #define SKILLNAME_RECALL1							L"recall"
 #define SKILLNAME_RECALL2							L"OdinRecall"
+#define SKILLNAME_REGENERATIONPOTION				L"RegenerationPotion"
+
 #define DRAGONNAME									L"SRU_Dragon6.1.1"
 #define BLUE_BUFF_NAME1								L"SRU_Blue7.1.1"
 #define BLUE_BUFF_NAME2								L"SRU_Blue1.1.1"
@@ -85,12 +85,13 @@
 #define SKILLNAME_ITEMVOIDGATE						L"ItemVoidGate"
 #define SKILLTIME_ITEMVOIDGATE						1 * 60 * 1000
 
+#define HERO_BUFF_RECALL							0x6
 
 #define HERO_BUFF_ASHE_Q							0xE
 #define HERO_BUFF_MASTERYI_W						0x0
 #define HERO_BUFF_MISSFORTUNE_W						0x19
-#define HERO_BUFF_GAREN_Q							0x0
-#define HERO_BUFF_GAREN_W							0x0
+#define HERO_BUFF_GAREN_Q							0xA
+#define HERO_BUFF_GAREN_W							0x6
 #define HERO_BUFF_MALZAHAR_R						0x0
 #define HERO_BUFF_NUNU_R							0x0
 #define HERO_BUFF_SJUANI_W							0x0
@@ -142,7 +143,7 @@
 #define HERO_BUFF_XINZHAO_W							0x0
 ///////Equment///////////////////////////////////////////////////////////////////
 #define EQUMENT_PRICE_红药							50
-#define EQUMENT_ID_红药								0x0
+#define EQUMENT_ID_红药								0x7D3
 #define EQUMENT_ID_蓝水晶							0x403
 #define EQUMENT_ID_女神之泪							0xBFE
 #define EQUMENT_ID_吸血鬼节杖						0x41D

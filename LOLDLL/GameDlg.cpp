@@ -12,8 +12,12 @@
 #include "Skill.h"
 #include "HeroBuff.h"
 #include "ScanBase.h"
-
-
+#include "FieldFight.h"
+#include "GameCALL.h"
+#include "Turret.h"
+#include "Person.h"
+#include "SkillServices.h"
+#include "EqumentServices.h"
 #define _SELF L"GameDlg.cpp"
 // CGameDlg dialog
 
@@ -55,6 +59,8 @@ BOOL CGameDlg::OnInitDialog()
 		CCB->InsertString(2, L"遍历技能");
 		CCB->InsertString(3, L"人物BUFF");
 		CCB->InsertString(4, L"ScanBase");
+		CCB->InsertString(5, L"PartyStart!");
+		CCB->InsertString(6, L"Test!");
 	}
 	
 	CGameInit::GetInstance().InitTimer();
@@ -73,6 +79,12 @@ LPCWSTR ConvertNumber(__in LPCWSTR pwszFormat, ...)
 	va_end(args);
 
 	return szBuff;
+}
+
+DWORD WINAPI _TestThread(LPVOID lpParm)
+{
+	CFieldFight::GetInstance().StartShowTime();
+	return 0;
 }
 
 void CGameDlg::OnBnClickedButton1()
@@ -102,12 +114,14 @@ void CGameDlg::OnBnClickedButton1()
 		m_List->InsertColumn(0, L"Base", LVCFMT_LEFT, 80);
 		m_List->InsertColumn(1, L"ID", LVCFMT_LEFT, 80);
 		m_List->InsertColumn(2, L"ID2", LVCFMT_LEFT, 80);
-		m_List->InsertColumn(3, L"Name", LVCFMT_LEFT, 100);
-		m_List->InsertColumn(4, L"IsShow", LVCFMT_LEFT, 100);
-		m_List->InsertColumn(5, L"TarId", LVCFMT_LEFT, 100);
-		m_List->InsertColumn(6, L"Point", LVCFMT_LEFT, 150);
-		m_List->InsertColumn(7, L"HP/MAXHP", LVCFMT_LEFT, 100);
+		m_List->InsertColumn(3, L"Name", LVCFMT_LEFT, 150);
+		m_List->InsertColumn(4, L"IsShow", LVCFMT_LEFT, 30);
+		m_List->InsertColumn(5, L"TarId", LVCFMT_LEFT, 80);
+		m_List->InsertColumn(6, L"Point", LVCFMT_LEFT, 100);
+		m_List->InsertColumn(7, L"HP/MAXHP", LVCFMT_LEFT, 80);
 		m_List->InsertColumn(8, L"Dis", LVCFMT_LEFT, 50);
+		m_List->InsertColumn(9, L"Type", LVCFMT_LEFT, 50);
+		m_List->InsertColumn(10, L"Camp", LVCFMT_LEFT, 50);
 
 		vector<CSolider> vlst;
 		CObjectExtend::GetInstance().GetHumanTypeListByType<CSolider>(em_Human_Type::em_Human_Type_Unknow, em_Camp::em_Camp_Blue, vlst);
@@ -132,6 +146,10 @@ void CGameDlg::OnBnClickedButton1()
 			m_List->SetItemText(nRow, 7, ConvertNumber(L"%d-%d",itm.GetHp(), itm.GetMaxHp()));
 
 			m_List->SetItemText(nRow, 8, ConvertNumber(L"%.2f", itm.GetDis()));
+
+			m_List->SetItemText(nRow, 9, ConvertNumber(L"%X", itm.GetHumanType()));
+
+			m_List->SetItemText(nRow, 10, ConvertNumber(L"%X", itm.GetCurrentCamp()));
 		}
 
 	}
@@ -204,6 +222,26 @@ void CGameDlg::OnBnClickedButton1()
 	else if (nIndex == 4)
 	{
 		CScanBase::GetInstance().Begin();
+	}
+	else if (nIndex == 5)
+	{
+		static HANDLE hThread = NULL;
+		if (hThread == NULL)
+		{
+			GameStart;
+			hThread = cbBEGINTHREADEX(NULL, NULL, _TestThread, NULL, NULL, NULL);
+		}
+		else
+		{
+			StopGame;
+			WaitForSingleObject(hThread, INFINITE);
+			hThread = NULL;
+		}
+	}
+	else if (nIndex == 6)
+	{
+		GameStart;
+		CEqumentServices::GetInstance().CheckMedicine();
 	}
 }
 

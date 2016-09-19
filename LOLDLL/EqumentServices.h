@@ -16,8 +16,9 @@ public:
 
 	// ≥ı ºªØπ∫ŒÔ, ¬Ú“©!
 	BOOL BuyMedicine() CONST;
-private:
-	DWORD dwLastEqumentId;
+
+	// Eat Medicine!
+	BOOL CheckMedicine() CONST;
 private:
 	DSIABLE_COPY_AND_ASSIGN(CEqumentServices);
 };

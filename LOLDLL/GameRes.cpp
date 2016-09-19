@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameRes.h"
+#include "Equment.h"
 #include <limits>
 #include <MyTools/CLLog.h>
 #include <MyTools/CLPublic.h>
@@ -81,13 +82,16 @@ em_Path_Type CGameRes::GetDefaultPathTypeByHero(_In_ em_Hero_Pro emHeroPro) CONS
 	switch (emHeroPro)
 	{
 	case em_Hero_Pro_Ryze: // 流浪法师中单
-		return em_Path_Type::Path_Type_Top;
+		return em_Path_Type::Path_Type_Middle;
+		Log(LOG_LEVEL_NORMAL, L"Set Current Path = Middle!");
 	case em_Hero_Pro_Swain: case em_Hero_Pro_Ashe: case em_Hero_Pro_Ezreal:  case em_Hero_Pro_Chogath:  case  em_Hero_Pro_Maokai:
 	case em_Hero_Pro_MissFortune: case em_Hero_Pro_Sejuani: case em_Hero_Pro_Galio: case em_Hero_Pro_KogMaw:
-		return em_Path_Type::Path_Type_Middle;
+		Log(LOG_LEVEL_NORMAL, L"Set Current Path = Top!");
+		return em_Path_Type::Path_Type_Top;
 	case em_Hero_Pro_Malzahar: case em_Hero_Pro_MasterYi: case em_Hero_Pro_Graves: case em_Hero_Pro_Vayne:
 	case em_Hero_Pro_Heimerdinger: case em_Hero_Pro_Nunu: case em_Hero_Pro_Garen: case em_Hero_Pro_Veigar:
 	case em_Hero_Pro_Tristana: case em_Hero_Pro_Lucian: case em_Hero_Pro_Corki: case em_Hero_Pro_Caitlyn:
+		Log(LOG_LEVEL_NORMAL, L"Set Current Path = Buttom!");
 		return em_Path_Type::Path_Type_Buttom;
 	default:
 		LogMsgBox(LOG_LEVEL_EXCEPTION, L"少年,这个英雄:%X暂时还不支持喔~!", emHeroPro);
@@ -112,14 +116,14 @@ CONST Point* CGameRes::GetNextMovePoint(_In_ em_Camp emCamp, _In_ em_Path_Type e
 		return nullptr;
 	}
 
-	auto Index = CLPublic::GetRecentlyIndexByVec(Vec, CurPoint);
+	int Index = CLPublic::GetRecentlyIndexByVec(Vec, CurPoint);
 	if (Index == -1)
 	{
 		LogMsgBox(LOG_LEVEL_EXCEPTION, L"GetRecentlyIndexByVec=-1!, CurPoint=[%d,%d,%d]", CurPoint.GetX(), CurPoint.GetY(),CurPoint.GetZ());
 		return nullptr;
 	}
 
-	return Index + 1 >= static_cast<decltype(Index)>(Vec.size()) ? &Vec.back() : &Vec.at(Index + 1);
+	return Index + 1 >= static_cast<decltype(Index)>(Vec.size()) ? &Vec.at(Vec.size() - 1) : &Vec.at(Index + 1);
 }
 
 CONST Point* CGameRes::GetPreviouMovePoint(_In_ em_Camp emCamp, _In_ em_Path_Type emPathType, _In_ CONST Point& CurPoint) CONST throw()
@@ -137,7 +141,7 @@ CONST Point* CGameRes::GetPreviouMovePoint(_In_ em_Camp emCamp, _In_ em_Path_Typ
 		LogMsgBox(LOG_LEVEL_EXCEPTION, L"GetRecentlyIndexByVec=-1!, CurPoint=[%d,%d,%d]", CurPoint.GetX(), CurPoint.GetY(), CurPoint.GetZ());
 		return nullptr;
 	}
-
+	Log(LOG_LEVEL_NORMAL, L"GetPreviouMovePoint: Index=%d", Index);
 	return Index - 1 >= 0 ? &Vec.at(Index - 1) : &Vec.at(0);
 }
 
@@ -145,12 +149,14 @@ float CGameRes::GetHeroAttackDis(_In_ em_Hero_Pro emHeroPro) CONST throw()
 {
 	switch (emHeroPro)
 	{
-	case em_Hero_Pro_Ryze:
-		break;
+	case em_Hero_Pro::em_Hero_Pro_Ryze: case em_Hero_Pro::em_Hero_Pro_Ashe:
+		return 7.0f;
+	case em_Hero_Pro::em_Hero_Pro_Garen:
+		return 2.0f;
 	default:
 		break;
 	}
-	return 3.0f;
+	return 2.0f;
 }
 
 CONST vector<Point>& CGameRes::GetPathPointVecByCampAndPathType(_In_ em_Camp emCamp, _In_ em_Path_Type emPathType) CONST throw()
@@ -182,12 +188,20 @@ CONST vector<Point>& CGameRes::GetPathPointVecByCampAndPathType(_In_ em_Camp emC
 
 	// Initialization Red Camp
 	if (TopRedCamp.size() == 0)
+	{
+		TopRedCamp.reserve(TopBlueCamp.size());
 		std::reverse_copy(std::begin(TopBlueCamp), std::end(TopBlueCamp), TopRedCamp.begin());
+	}
 	if (MiddleRedCamp.size() == 0)
+	{
+		MiddleRedCamp.reserve(MiddleBlueCamp.size());
 		std::reverse_copy(std::begin(MiddleBlueCamp), std::end(MiddleBlueCamp), MiddleRedCamp.begin());
+	}
 	if (ButtomRedCamp.size() == 0)
+	{
+		ButtomRedCamp.reserve(ButtomBlueCamp.size());
 		std::reverse_copy(std::begin(ButtomBlueCamp), std::end(ButtomBlueCamp), ButtomRedCamp.begin());
-
+	}
 
 	// return Camp&&PathType
 	if (emCamp == em_Camp::em_Camp_Red)
@@ -337,13 +351,16 @@ auto CGameRes::GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqu
 		return nullptr;
 	}
 
+	if (dwLastEqumentId == NULL)
+		return &*pVec->begin();
+
 	// find current equment id in pVec
 	auto& ResEqumentItr = std::find_if(pVec->begin(), pVec->end(), [&dwLastEqumentId](CONST auto& itm) {
 		return itm.dwEqumentId == dwLastEqumentId;
 	});
 	if (ResEqumentItr == pVec->end())
 	{
-		LogMsgBox(LOG_LEVEL_EXCEPTION, L"UnExist Hero Equment:%X", emHeroPro);
+		LogMsgBox(LOG_LEVEL_EXCEPTION, L"UnExist Hero Equment:%X, ID:%X", emHeroPro, dwLastEqumentId);
 		return nullptr;
 	}
 
@@ -357,6 +374,28 @@ auto CGameRes::GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqu
 	return &*(ResEqumentItr + 1);
 }
 
+DWORD CGameRes::GetCurrentLastEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ vector<CEqument>& vlst) CONST
+{
+	auto emResEqumentType = GetResEqumentTypeByHero(emHeroPro);
+	auto pVec = GetResEuqmentVecByType(emResEqumentType);
+	if (pVec == nullptr)
+	{
+		LogMsgBox(LOG_LEVEL_EXCEPTION, L"UnExist Hero Equment:%X", emHeroPro);
+		return NULL;
+	}
+
+	if (vlst.size() == 0)
+		return NULL;
+
+	for (auto itr = pVec->rbegin(); itr != pVec->rend(); ++itr)
+	{
+		if (CLPublic::Vec_find_if(vlst, [&itr](CONST CEqument& itm) { return itm.GetId() == itr->dwEqumentId; }) != nullptr)
+			return itr->dwEqumentId;
+	}
+
+	return NULL;
+}
+
 auto CGameRes::GetResSkillByHero(_In_ em_Hero_Pro emHeroPro) CONST throw() -> CONST ResSkill*
 {
 	return CLPublic::Vec_find_if(GetResSkillList(), [&emHeroPro](CONST auto& itm) { return itm.emHeroPro == emHeroPro; });
@@ -367,36 +406,83 @@ auto CGameRes::GetResSkillByHero(_In_ cwstring& wsHeroName) CONST throw()->CONST
 	return CLPublic::Vec_find_if(GetResSkillList(), [&wsHeroName](CONST auto& itm) { return itm.HeroName == wsHeroName; });
 }
 
-CONST em_Skill_Index* CGameRes::GetSPByHeroLevel(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLevel) CONST throw()
+em_Skill_Index CGameRes::GetSPByHeroLevel(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLevel) CONST throw()
 {
-	CONST auto& Vec = GetHeroSpVec();
-	auto pHeroSp = CLPublic::Vec_find_if(Vec, [&emHeroPro](CONST auto& itm) { return itm.emHeroPro == emHeroPro; });
-	return pHeroSp == nullptr ? nullptr : &pHeroSp->SkillSpVec.at(dwLevel);
-}
-
-auto CGameRes::GetHeroSpVec() CONST throw() -> CONST vector<tagHeroSp>&
-{
-	CONST static vector<tagHeroSp> vlst = {
-		{ em_Hero_Pro_Ryze,{ 
-			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
-			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
-			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
-			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,
-		} },
-		{ em_Hero_Pro_Garen,{
-			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
-			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
-			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,em_Skill_Index_Q, em_Skill_Index_Q,
-			em_Skill_Index_Q ,em_Skill_Index_Q,em_Skill_Index_Q,
-		} },
+	auto fn_StudySkill_Q = [](DWORD dwLevel)
+	{
+		switch (dwLevel)
+		{
+		case 1: case 4: case 8: case 12: case 15:
+			return em_Skill_Index_Q;
+		case 2: case 5: case 9: case 13: case 17:
+			return em_Skill_Index_W;
+		case 3: case 7: case 10: case 14: case 18:
+			return em_Skill_Index_E;
+		case 6: case 11: case 16:
+			return em_Skill_Index_R;
+		default:
+			break;
+		}
+		return em_Skill_Index_Q;
 	};
-	return vlst;
+
+	auto fn_StudySkill_W = [](DWORD dwLevel)
+	{
+		switch (dwLevel)
+		{
+		case 2: case 5: case 9: case 13: case 17:
+			return em_Skill_Index_Q;
+		case 1: case 4: case 8: case 12: case 15:
+			return em_Skill_Index_W;
+		case 3: case 7: case 10: case 14: case 18:
+			return em_Skill_Index_E;
+		case 6: case 11: case 16:
+			return em_Skill_Index_R;
+		default:
+			break;
+		}
+		return em_Skill_Index_Q;
+	};
+
+	auto fn_StudySkill_E = [](DWORD dwLevel)
+	{
+		switch (dwLevel)
+		{
+		case 3: case 4: case 5: case 7: case 9:
+			return em_Skill_Index_Q;
+		case 2: case 8: case 12: case 14: case 17:
+			return em_Skill_Index_W;
+		case 1: case 10: case 13: case 15: case 18:
+			return em_Skill_Index_E;
+		case 6: case 11: case 16:
+			return em_Skill_Index_R;
+		default:
+			break;
+		}
+		return em_Skill_Index_Q;
+	};
+
+	Log(LOG_LEVEL_NORMAL, L"Study Skill! Level=%d", dwLevel);
+	switch (emHeroPro)
+	{
+	case em_Hero_Pro_Ryze: case em_Hero_Pro_Ashe: case em_Hero_Pro_Garen:
+		return fn_StudySkill_Q(dwLevel);
+	default:
+		break;
+	}
+
+	return em_Skill_Index_Q;
+	/*CONST auto& Vec = GetHeroSpVec();
+	auto pHeroSp = CLPublic::Vec_find_if(Vec, [&emHeroPro](CONST auto& itm) { return itm.emHeroPro == emHeroPro; });
+	return pHeroSp == nullptr ? nullptr : &pHeroSp->SkillSpVec.at(dwLevel);*/
 }
 
 CONST vector<ResSkill>& CGameRes::GetResSkillList() CONST  throw()
 {
 	CONST static vector<ResSkill> vlst = {
-		{ em_Hero_Pro_Ryze,L"瑞兹",{ em_Skill_Type::em_Skill_Type_UnDirectional , 7 },{ em_Skill_Type::em_Skill_Type_Directional, 5 },{ em_Skill_Type::em_Skill_Type_Directional, 5 },{ em_Skill_Type::em_Skill_Type_Self_UnDirectional, 10 } },
+		{ em_Hero_Pro_Ryze,L"Ryze",{ em_Skill_Type::em_Skill_Type_UnDirectional , 7 },{ em_Skill_Type::em_Skill_Type_Directional, 5 },{ em_Skill_Type::em_Skill_Type_Directional, 5 },{ em_Skill_Type::em_Skill_Type_Self_UnDirectional, 10 } },
+		{ em_Hero_Pro_Ashe,L"Ashe",{ em_Skill_Type::em_Skill_Type_Buff_Self , 7 },{ em_Skill_Type::em_Skill_Type_UnDirectional, 7 },{ em_Skill_Type::em_Skill_Type_UnDirectional, 7 },{ em_Skill_Type::em_Skill_Type_UnDirectional, 7 } },
+		{ em_Hero_Pro_Garen,L"Garen",{ em_Skill_Type::em_Skill_Type_Buff_Self , 7 },{ em_Skill_Type::em_Skill_Type_Buff_Self, 7 },{ em_Skill_Type::em_Skill_Type_Buff_Self, 2 },{ em_Skill_Type::em_Skill_Type_Directional, 3 } },
 	};
 
 	return vlst;

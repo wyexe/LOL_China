@@ -53,14 +53,9 @@ BOOL CSkillServices::UseSkill(_In_ em_Skill_Index emSkillIndex, _In_ CONST CHuma
 
 BOOL CSkillServices::LevelUpSkill() CONST
 {
-	auto pemSkillIndex = CGameRes::GetInstance().GetSPByHeroLevel(CPerson::GetInstance().GetHeroPro(), CPerson::GetInstance().GetLevel());
-	if (pemSkillIndex == nullptr)
-	{
-		LogMsgBox(LOG_LEVEL_EXCEPTION, L"pemSkillIndex=nullptr,Hero=%X,Level=%d", CPerson::GetInstance().GetHeroPro(), CPerson::GetInstance().GetLevel());
-		return FALSE;
-	}
-	return CGameVariable::GetInstance().PushMainThreadActionPtr([&pemSkillIndex] {
-		CGameCALL::GetInstance().UpgradeSkill(*pemSkillIndex);
+	em_Skill_Index emSkillIndex = CGameRes::GetInstance().GetSPByHeroLevel(CPerson::GetInstance().GetHeroPro(), CPerson::GetInstance().GetLevel());
+	return CGameVariable::GetInstance().PushMainThreadActionPtr([&emSkillIndex] {
+		CGameCALL::GetInstance().UpgradeSkill(emSkillIndex);
 	});
 }
 
@@ -81,38 +76,20 @@ CONST ResSkill* CSkillServices::GetCurrentHeroSkillConfig() CONST
 
 BOOL CSkillServices::UseItemSkill(_In_ cwstring& wsItemSkillName, _In_ em_Skill_Type emSkillType) CONST
 {
-	vector<CSkill> vlst;
-	CObjectExtend::GetInstance().GetSkillList(vlst);
-
 	CSkill Skill;
-	if (!CObjectExtend::GetInstance().ExistSkillByName(wsItemSkillName,&Skill))
-		return FALSE;
-
-	return Skill.UseSkill(CPerson::GetInstance(), emSkillType);
+	return CObjectExtend::GetInstance().ExistSkillByName(wsItemSkillName, &Skill) ? Skill.UseSkill(CPerson::GetInstance(), emSkillType) : FALSE;
 }
 
 BOOL CSkillServices::UseBuffSkill(_In_ cwstring& wsSkillName) CONST
 {
-	vector<CSkill> vlst;
-	CObjectExtend::GetInstance().GetSkillList(vlst);
-
 	CSkill Skill;
-	if (!CObjectExtend::GetInstance().ExistSkillByName(wsSkillName, &Skill))
-		return FALSE;
-
-	return Skill.UseSkill(CPerson::GetInstance(), em_Skill_Type::em_Skill_Type_Buff_Self);
+	return CObjectExtend::GetInstance().ExistSkillByName(wsSkillName, &Skill) ? Skill.UseSkill(CPerson::GetInstance(), em_Skill_Type::em_Skill_Type_Buff_Self) : FALSE;
 }
 
 BOOL CSkillServices::UseUnDirectionalItemSkill(_In_ cwstring& wsSkillName) CONST
 {
-	vector<CSkill> vlst;
-	CObjectExtend::GetInstance().GetSkillList(vlst);
-
 	CSkill Skill;
-	if (!CObjectExtend::GetInstance().ExistSkillByName(wsSkillName, &Skill))
-		return FALSE;
-
-	return Skill.UseSkill(CPerson::GetInstance(), em_Skill_Type::em_Skill_Type_Self_UnDirectional);
+	return CObjectExtend::GetInstance().ExistSkillByName(wsSkillName, &Skill) ? Skill.UseSkill(CPerson::GetInstance(), em_Skill_Type::em_Skill_Type_Self_UnDirectional) : FALSE;
 }
 
 CONST ResSkillInfo* CSkillServices::GetSkillResInfo(_In_ em_Skill_Index emSkillIndex) CONST

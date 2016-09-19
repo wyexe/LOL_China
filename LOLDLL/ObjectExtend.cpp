@@ -7,6 +7,7 @@
 #include "Turret.h"
 #include "Person.h"
 #include "Solider.h"
+#define _SELF L"ObjectExtend.cpp"
 CObjectExtend::CObjectExtend()
 {
 }
@@ -92,13 +93,13 @@ BOOL CObjectExtend::GetLatelyTurretByCamp(_In_ em_Camp emCamp, _In_ float fDis, 
 {
 	vector<CTurret> vlst;
 	GetHumanTypeListByType(em_Human_Type_Turret, emCamp, vlst);
-	return CLPublic::Vec_find_if(vlst, pTurret, [&fDis](CONST auto& itm) { return itm.GetDis() <= fDis; });
+	return CLPublic::Vec_find_if(vlst, pTurret, [&fDis](CONST CTurret& itm) { return itm.GetDis() <= fDis; });
 }
 
 BOOL CObjectExtend::ExistSoliderByCondition(_In_ em_Camp emCamp, _Out_ CSolider* pSolider, _In_ std::function<BOOL(CONST CSolider&)> Finder) CONST
 {
 	vector<CSolider> vlst;
-	GetHumanTypeListByType(em_Human_Type_Turret, emCamp, vlst);
+	GetHumanTypeListByType(em_Human_Type_Solider, emCamp, vlst);
 	return CLPublic::Vec_find_if(vlst, pSolider, Finder);
 }
 
@@ -128,7 +129,7 @@ UINT CObjectExtend::GetAllySoliderCountByDis(_In_ CONST Point& FixPt, _In_ float
 {
 	vector<CSolider> vlst;
 	GetHumanTypeListByType(em_Human_Type_Solider, CPerson::GetInstance().GetCurrentCamp(), vlst);
-	return CLPublic::Vec_erase_if(vlst, [&FixPt, &fDis](CONST auto& itm) { return itm.GetDis(FixPt) <= fDis; });
+	return CLPublic::Vec_erase_if(vlst, [&FixPt, &fDis](CONST auto& itm) { return itm.GetDis(FixPt) > fDis; });
 }
 
 BOOL CObjectExtend::GetAnemiaSoliderByDis(_In_ float fDis, _Out_ CSolider* pSolider) CONST
@@ -142,7 +143,7 @@ UINT CObjectExtend::GetEnemyAttackSoliderCountByDis(_In_ float fDis) CONST
 {
 	vector<CSolider> vlst;
 	GetHumanTypeListByType(em_Human_Type_Solider, CPerson::GetInstance().GetEnemyCamp(), vlst);
-	return CLPublic::Vec_erase_if(vlst, [&fDis](CONST auto& itm) { return itm.GetTargetId() == CPerson::GetInstance().GetId() && itm.GetDis() <= fDis; });
+	return CLPublic::Vec_erase_if(vlst, [&fDis](CONST auto& itm) { return itm.GetTargetId() != CPerson::GetInstance().GetId() || itm.GetDis() > fDis; });
 }
 
 BOOL CObjectExtend::GetLatelyHeroByCamp(_In_ em_Camp emCamp, _In_ float fDis, _Out_ CHero* pHero) CONST
@@ -156,5 +157,5 @@ UINT CObjectExtend::GetEnemyAttackHeroCountByDis(_In_ float fDis) CONST
 {
 	vector<CHero> vlst;
 	GetHumanTypeListByType(em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), vlst);
-	return CLPublic::Vec_erase_if(vlst, [&fDis](CONST auto& itm) { return itm.GetTargetId() == CPerson::GetInstance().GetId() && itm.GetDis() <= fDis; });
+	return CLPublic::Vec_erase_if(vlst, [&fDis](CONST auto& itm) { return itm.GetTargetId() != CPerson::GetInstance().GetId() || itm.GetDis() > fDis; });
 }

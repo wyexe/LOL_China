@@ -33,7 +33,7 @@ public:
 				continue;
 
 			T tmp(dwObj);
-			if(emHumanType != em_Human_Type_Unknow && (tmp.GetHp() == NULL || tmp.GetCurrentCamp() != emCamp || tmp.GetHumanType() != emHumanType))
+			if(emHumanType != em_Human_Type_Unknow && (tmp.GetHp() == NULL || tmp.GetCurrentCamp() != emCamp || tmp.GetHumanType() != emHumanType || !tmp.IsShowInFog()))
 				continue;
 
 			tmp.SetDis();

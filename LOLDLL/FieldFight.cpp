@@ -35,7 +35,7 @@ VOID CFieldFight::StartShowTime() CONST
 	{
 		if (CPerson::GetInstance().IsDead())
 		{
-			Log(LOG_LEVEL_NORMAL, L"人物挂了!");
+			Log(LOG_LEVEL_NORMAL, L"Current Hero Dead!");
 			Relive();
 			continue;
 		}
@@ -46,7 +46,7 @@ VOID CFieldFight::StartShowTime() CONST
 
 		if (CCreepServices::GetInstance().IsRefreshDragonBuff())
 		{
-			Log(LOG_LEVEL_NORMAL, L"刷龙了!");
+			Log(LOG_LEVEL_NORMAL, L"Kill Dragon!");
 			KillDragon();
 			continue;
 		}
@@ -54,9 +54,16 @@ VOID CFieldFight::StartShowTime() CONST
 		// 是否需要回城了
 		if (CFightServices::GetInstance().IsHaveToBackToBase())
 		{
+			Log(LOG_LEVEL_NORMAL, L"recall Base!");
 			BackToBase();
 			continue;
 		}
+
+		// 
+		CSkillServices::GetInstance().CheckLevelupSkill();
+
+		// 
+		CEqumentServices::GetInstance().CheckMedicine();
 		
 		// 处理塔
 		if (DoTurret())
@@ -79,18 +86,23 @@ VOID CFieldFight::StartShowTime() CONST
 
 VOID CFieldFight::PartyInitialization() CONST
 {
-	// 等待开始
-	CFightServices::GetInstance().WaitToShowSolider();
-
 	// 锁定视角
+	Log(LOG_LEVEL_NORMAL, L"Lock View");
 	CPerson::GetInstance().LockView();
 
 	// 初始化购物
+	Log(LOG_LEVEL_NORMAL, L"Equment Initialization");
 	CEqumentServices::GetInstance().BuyEqument();
+
+	Log(LOG_LEVEL_NORMAL, L"shop Some Medicine!");
 	CEqumentServices::GetInstance().BuyMedicine();
 
 	// 设置分路
 	SetHeroPath();
+
+	// 等待开始
+	Log(LOG_LEVEL_NORMAL, L"wait for Show Solider!");
+	CFightServices::GetInstance().WaitToShowSolider();
 }
 
 BOOL CFieldFight::SetHeroPath() CONST
@@ -164,13 +176,8 @@ BOOL CFieldFight::KillDragon() CONST
 	auto p1 = CGameRes::GetInstance().GetDroganPoint();
 	Point p2(p1.X + 300.0f, p1.Y + 300.0f, p1.Z);
 
-	auto fnGather = []
-	{
-		return TRUE;
-	};
-
 	ULONGLONG ulTick = ::GetTickCount64();
-	while (GameRun && !CPerson::GetInstance().IsDead() && !fnGather() && ::GetTickCount64() - ulTick <= 1 * 60 * 1000)
+	while (GameRun && !CPerson::GetInstance().IsDead() && ::GetTickCount64() - ulTick <= 1 * 60 * 1000)
 	{
 		LOLMove(p1, 500);
 
@@ -182,16 +189,31 @@ BOOL CFieldFight::KillDragon() CONST
 		{
 			// Around un exist Dragon!
 			CSolider Dragon;
-			if (!CObjectExtend::GetInstance().ExistSoliderByName(DRAGONNAME, em_Camp_Neutral, &Dragon) || Dragon.GetPercentHp() != 100)
+			if (!CObjectExtend::GetInstance().ExistSoliderByCondition(em_Camp_Neutral, &Dragon, [](CONST CSolider& Solider) { return Solider.GetName().find(L"SRU_Dragon_") != -1; }) )
+			{
+				Log(LOG_LEVEL_NORMAL, L"UnExist Dragon!");
 				break;
+			}
+
+			if (Dragon.GetPercentHp() != 100)
+			{
+				Log(LOG_LEVEL_NORMAL, L"Dragon Percent Hp=%d", Dragon.GetPercentHp());
+				break;
+			}
 
 			// need member more then 4 when self level <= 6
-			if(CPerson::GetInstance().GetLevel() <= 6 && CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetCurrentCamp(), MAX_ATTACK_DIS) >= 4)
+			if (CPerson::GetInstance().GetLevel() <= 6 && CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetCurrentCamp(), MAX_ATTACK_DIS) >= 4)
+			{
+				Log(LOG_LEVEL_NORMAL, L"Around Ally Hero Count >= 4 && Level <= 6");
 				break;
+			}
 			
 			// need member more then 3 when self level > 6
 			if (CPerson::GetInstance().GetLevel() > 6 && CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetCurrentCamp(), MAX_ATTACK_DIS) >= 3)
+			{
+				Log(LOG_LEVEL_NORMAL, L"Around Ally Hero Count >= 3 && Level > 6");
 				break;
+			}
 		}
 
 		LOLMove(p2, 500);
@@ -203,6 +225,7 @@ BOOL CFieldFight::KillDragon() CONST
 	CSolider Solider;
 	while (CObjectExtend::GetInstance().GetLatelySoliderByCamp(em_Camp_Neutral, MAX_ATTACK_DIS, &Solider) && GameRun && !CPerson::GetInstance().IsDead())
 	{
+		Log(LOG_LEVEL_NORMAL, L"Kill %s", Solider.GetName().c_str());
 		CHeroFight::GetInstance().KillSolider(Solider);
 		LOLSleep(100);
 	}
@@ -225,10 +248,11 @@ BOOL CFieldFight::BackToBase() CONST
 		CSkillServices::GetInstance().UseBuffSkill(SKILLNAME_RECALL2);
 
 		// check exist recall buff!
+		LOLSleep(1000);
 		if (!CLPublic::TimeOut_By_Condition(12 * 1000, [] {
-			return GameRun && !CPerson::GetInstance().IsDead() && \
+			return !(GameRun && !CPerson::GetInstance().IsDead() && CObjectExtend::GetInstance().ExistBuffById(HERO_BUFF_RECALL, nullptr) && \
 			CObjectExtend::GetInstance().GetAroundHumanTypeCount<CSolider>(em_Human_Type_Solider, CPerson::GetInstance().GetEnemyCamp(), 10.0f) == 0 && \
-			CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), 10.0f) == 0;
+			CObjectExtend::GetInstance().GetAroundHumanTypeCount<CHero>(em_Human_Type_Hero, CPerson::GetInstance().GetEnemyCamp(), 10.0f) == 0);
 		}))
 		{
 			Log(LOG_LEVEL_NORMAL, L"回城完毕!");
@@ -278,13 +302,15 @@ BOOL CFieldFight::MoveToLatelyTurret() CONST
 
 BOOL CFieldFight::RestInSpring() CONST
 {
+	Log(LOG_LEVEL_NORMAL, L"Wait for Full state");
 	while (GameRun && (CPerson::GetInstance().GetPercentHp() < 70 || CPerson::GetInstance().GetPercentMp() < 70) && LOLSleep(500));
-	
+	Log(LOG_LEVEL_NORMAL, L"Buy Next Equment!");
 	return CEqumentServices::GetInstance().BuyEqument();
 }
 
 BOOL CFieldFight::BackOff() CONST
 {
+	Log(LOG_LEVEL_NORMAL, L"BackOff !");
 	auto pResPoint = CGameRes::GetInstance().GetPreviouMovePoint(CPerson::GetInstance().GetCurrentCamp(), CPerson::GetInstance().GetHeroPath(), CPerson::GetInstance().GetPoint());
 	if (pResPoint == nullptr)
 	{
@@ -302,29 +328,26 @@ BOOL CFieldFight::DoBackToBase() CONST
 		return FALSE;
 
 	Log(LOG_LEVEL_NORMAL, L"需要回城!");
-	if (!BackToBase())
-		return FALSE;
-
-	return Relive();
+	return BackToBase() ? Relive() : FALSE;
 }
 
 BOOL CFieldFight::DoTurret() CONST
 {
 	// did have to dodge turret(dis || attack)
-	if (CFightServices::GetInstance().IsDodgeTurret())
-		return DodgeTurret();
-	else if (CFightServices::GetInstance().IsAttackTurret())
-		return AttackTurret();
-	return FALSE;
+	return CFightServices::GetInstance().IsDodgeTurret() ? DodgeTurret() : (CFightServices::GetInstance().IsAttackTurret() ? AttackTurret() : FALSE);
 }
 
 BOOL CFieldFight::DodgeTurret() CONST
 {
+	Log(LOG_LEVEL_NORMAL, L"Dodge Turret!");
 	while (GameRun && !CPerson::GetInstance().IsDead() && CObjectExtend::GetInstance().GetLatelyTurretByCamp(CPerson::GetInstance().GetEnemyCamp(), 10.0f + 5.0f, nullptr) && BackOff());
 	
 	static ULONGLONG ulTick = NULL;
 	if (::GetTickCount64() - ulTick >= SKILLTIME_ITEMVOIDGATE && CObjectExtend::GetInstance().ExistEqumentById(EQUMENT_ID_传送门, nullptr))
+	{
+		Log(LOG_LEVEL_NORMAL, L"Use Item Void Gate!");
 		CSkillServices::GetInstance().UseUnDirectionalItemSkill(SKILLNAME_ITEMVOIDGATE);
+	}
 
 	return CPerson::GetInstance().StopAction();
 }
@@ -343,7 +366,7 @@ BOOL CFieldFight::AttackTurret() CONST
 
 BOOL CFieldFight::DoSolider() CONST
 {
-	return TRUE;
+	return CFightServices::GetInstance().IsDogeSolider() ? DodgeSolider() : (CFightServices::GetInstance().IsClearSolider() ? AttackSolider() : FALSE);
 }
 
 BOOL CFieldFight::DodgeSolider() CONST
@@ -356,7 +379,10 @@ BOOL CFieldFight::AttackSolider() CONST
 {
 	CSolider Solider;
 	if (!CObjectExtend::GetInstance().GetLatelySoliderByCamp(CPerson::GetInstance().GetEnemyCamp(), MAX_ATTACK_DIS, &Solider))
+	{
+		Log(LOG_LEVEL_NORMAL, L"Can't find Lately Solider!");
 		return FALSE;
+	}
 
 	if (Solider.GetDis() > CPerson::GetInstance().GetNormalAttackDis())
 		return LOLMove(Solider.GetPoint(), 300);;
@@ -366,11 +392,12 @@ BOOL CFieldFight::AttackSolider() CONST
 
 BOOL CFieldFight::DoHero() CONST
 {
-	return TRUE;
+	return CFightServices::GetInstance().IsDodgeHero() ? DoDgeHero() : (CFightServices::GetInstance().IsAttackHero() ? AttackHero() : FALSE);
 }
 
 BOOL CFieldFight::DoDgeHero() CONST
 {
+	Log(LOG_LEVEL_NORMAL, L"Dodge Hero!");
 	while (GameRun && !CPerson::GetInstance().IsDead() && CObjectExtend::GetInstance().GetEnemyAttackSoliderCountByDis(10.0f) > 0 && BackOff());
 	return CPerson::GetInstance().StopAction();
 }

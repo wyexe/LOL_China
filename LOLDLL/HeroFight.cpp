@@ -5,6 +5,7 @@
 #include "Person.h"
 #include "SkillServices.h"
 #include "ObjectExtend.h"
+#include "Solider.h"
 
 #define _SELF L"HeroFight.cpp"
 
@@ -25,11 +26,27 @@ CHeroFight& CHeroFight::GetInstance()
 
 BOOL CHeroFight::KillSolider(_In_ CONST CSolider& Solider, _In_ BOOL bQ, _In_ BOOL bW, _In_ BOOL bE) CONST
 {
-	return TRUE;
+	if (bQ && pSkillServices->IsSkillCooldown(em_Skill_Index::em_Skill_Index_Q))
+		pSkillServices->UseSkill(em_Skill_Index::em_Skill_Index_Q, Solider);
+	else if (bQ && pSkillServices->IsSkillCooldown(em_Skill_Index::em_Skill_Index_W))
+		pSkillServices->UseSkill(em_Skill_Index::em_Skill_Index_W, Solider);
+	else if (bQ && pSkillServices->IsSkillCooldown(em_Skill_Index::em_Skill_Index_E))
+		pSkillServices->UseSkill(em_Skill_Index::em_Skill_Index_E, Solider);
+
+	return Solider.Attack();
 }
 
 BOOL CHeroFight::KillSolider(_In_ CONST CSolider& Solider) CONST
 {
+	switch (CPerson::GetInstance().GetHeroPro())
+	{
+	case em_Hero_Pro::em_Hero_Pro_Ashe: case em_Hero_Pro::em_Hero_Pro_Garen:
+		return KillSolider(Solider, FALSE, FALSE, TRUE);
+	case em_Hero_Pro::em_Hero_Pro_Ryze:
+		return KillSolider(Solider, FALSE, FALSE, TRUE);
+	default:
+		break;
+	}
 	return TRUE;
 }
 
@@ -150,6 +167,7 @@ BOOL CHeroFight::Hero_Ashe(_In_ CONST CHero& EnemyHero) CONST
 	// 有W用W
 	if (EnemyHero.GetDis() < 7.0f && pSkillServices->IsSkillCooldown(em_Skill_Index::em_Skill_Index_W))
 		return pSkillServices->UseSkill(em_Skill_Index::em_Skill_Index_W, EnemyHero);
+
 	// 只有打英雄的时候才用R!
 	if (EnemyHero.GetPercentHp() < 50 && pSkillServices->IsSkillCooldown(em_Skill_Index::em_Skill_Index_R))
 		return pSkillServices->UseSkill(em_Skill_Index::em_Skill_Index_R, EnemyHero);

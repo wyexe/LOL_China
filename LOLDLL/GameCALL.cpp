@@ -186,7 +186,7 @@ BOOL CGameCALL::UseSkill(_In_ CONST std::tuple<Point, Point, em_Skill_Index, DWO
 
 		dwSkillIndex = static_cast<DWORD>(std::get<2>(tup));
 		dwTarId = std::get<3>(tup);
-		dwSkillBase = std::get<3>(tup);
+		dwSkillBase = std::get<4>(tup);
 
 		__asm
 		{

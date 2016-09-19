@@ -3,6 +3,7 @@
 
 #include "GameVariable.h"
 
+class CEqument;
 class CGameRes
 {
 public:
@@ -67,6 +68,7 @@ public:
 
 	// Equment
 	auto GetNextEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLastEqumentId) CONST throw() -> CONST ResEqument*;
+	DWORD GetCurrentLastEqumentId(_In_ em_Hero_Pro emHeroPro, _In_ vector<CEqument>& vlst) CONST;
 
 	// Skill
 	// 获取英雄的技能用法介绍
@@ -74,7 +76,7 @@ public:
 	auto GetResSkillByHero(_In_ cwstring& wsHeroName) CONST throw()->CONST ResSkill*;
 
 	// 获取英雄的技能点该加哪个点
-	CONST em_Skill_Index* GetSPByHeroLevel(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLevel) CONST throw();
+	em_Skill_Index GetSPByHeroLevel(_In_ em_Hero_Pro emHeroPro, _In_ DWORD dwLevel) CONST throw();
 
 	// Next Move Point
 	// 获取下一个移动的坐标点(return nullptr 表示无路可走!)
@@ -91,9 +93,6 @@ private:
 
 	// 获取英雄的所有装备列表
 	auto GetResEuqmentVecByType(_In_ em_ResEqument_Type emResEqumentType) CONST throw() ->CONST vector<ResEqument>*;
-
-	// 获取所有英雄的技能加点大全
-	auto GetHeroSpVec() CONST throw() ->CONST vector<tagHeroSp>&;
 
 	// 获取英雄技能用法介绍List
 	CONST vector<ResSkill>& GetResSkillList() CONST throw();

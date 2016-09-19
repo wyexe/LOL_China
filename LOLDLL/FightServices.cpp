@@ -75,7 +75,10 @@ BOOL CFightServices::IsDodgeTurret() CONST
 
 	// Turret attack
 	if (Turret.GetTargetId() == CPerson::GetInstance().GetId())
+	{
+		Log(LOG_LEVEL_NORMAL, L"Turret TargetId = Self!");
 		return TRUE;
+	}
 
 	// Hero Attack
 	CHero EnemyHero;
@@ -120,18 +123,20 @@ BOOL CFightServices::IsClearSolider() CONST
 
 BOOL CFightServices::IsDodgeHero() CONST
 {
-	return CObjectExtend::GetInstance().GetEnemyAttackHeroCountByDis(MAX_ATTACK_DIS) > 0;
+	return CObjectExtend::GetInstance().GetEnemyAttackHeroCountByDis(MAX_ATTACK_DIS) > 0 && CPerson::GetInstance().GetLevel() < 6;
 }
 
 BOOL CFightServices::IsAttackHero() CONST
 {
 	if (CObjectExtend::GetInstance().GetEnemyHeroCountByDis(MAX_ATTACK_DIS) == 0)
 		return FALSE;
+	else if (CObjectExtend::GetInstance().GetEnemyAttackHeroCountByDis(MAX_ATTACK_DIS) > 0)
+		return TRUE;
 
 	DWORD dwLevel = CPerson::GetInstance().GetLevel();
 	UINT uCount = CObjectExtend::GetInstance().GetEnemyAttackSoliderCountByDis(MAX_ATTACK_DIS);
 	if (dwLevel < 6 && uCount >= 3)
 		return FALSE;
 
-	return !(dwLevel >= 8 && uCount >= 5);
+	return dwLevel >= 8 && uCount >= 5 ? FALSE : TRUE;
 }

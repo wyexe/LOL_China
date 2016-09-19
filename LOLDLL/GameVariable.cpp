@@ -78,9 +78,16 @@ BOOL CGameVariable::DoMainThreadActionPtr(_In_ std::function<VOID(std::queue<Mai
 
 BOOL CGameVariable::Sleep(_In_ DWORD dwSleepTime) CONST
 {
-	for (DWORD i = 0;i < dwSleepTime && GameRun; i += 50)
+	for (DWORD i = 0;i < dwSleepTime && GameRun; i += 100)
 		::Sleep(i);
 	return TRUE;
+}
+
+
+em_GameCmd& CGameVariable::GetGameRunStatus() CONST
+{
+	static em_GameCmd emGameCmd = em_GameCmd::em_GameCmd_None;
+	return emGameCmd;
 }
 
 BOOL CGameVariable::PushMainThreadActionPtr(_In_ std::function<VOID(VOID)> Worker) CONST throw()
